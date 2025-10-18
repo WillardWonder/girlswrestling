@@ -1,1 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merrill Bluejays Girls Wrestling</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --bluejay-blue: #003087;
+            --bluejay-light: #0047AB;
+            --white: #ffffff;
+            --black: #1a1a1a;
+            --light-gray: #f5f5f5;
+            --medium-gray: #7f8c8d;
+            --accent-blue: #0066CC;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background: var(--white);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--bluejay-blue) 0%, var(--bluejay-light) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.9rem;
+            font-weight: normal;
+            letter-spacing: 1px;
+            opacity: 0.95;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 48, 135, 0.85), rgba(0, 71, 171, 0.85)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23003087" width="1200" height="600"/><path fill="%230047AB" opacity="0.4" d="M0 300L50 280L100 290L150 270L200 285L250 275L300 290L350 280L400 295L450 285L500 300L550 290L600 305L650 295L700 310L750 300L800 315L850 305L900 320L950 310L1000 325L1050 315L1100 330L1150 320L1200 335V600H0Z"/></svg>') center/cover;
+            color: white;
+            padding: 7rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-highlight {
+            color: white;
+            font-weight: bold;
+            text-decoration: underline;
+            text-decoration-color: rgba(255,255,255,0.5);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 1rem auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: white;
+            color: var(--bluejay-blue);
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section:nth-child(even) {
+            background: var(--light-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--bluejay-blue);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent-blue);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--bluejay-blue);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,48,135,0.2);
+        }
+
+        .benefit-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h3 {
+            color: var(--bluejay-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .benefit-card p {
+            line-height: 1.8;
+            color: var(--black);
+        }
+
+        .stats-banner {
+            background: var(--bluejay-blue);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .schedule-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
+        }
+
+        .event-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            border-left: 4px solid var(--bluejay-blue);
+            transition: transform 0.2s;
+        }
+
+        .event-item:hover {
+            transform: translateX(5px);
+        }
+
+        .event-date {
+            font-weight: bold;
+            color: var(--bluejay-blue);
+            min-width: 120px;
+        }
+
+        .event-details h4 {
+            color: var(--black);
+            margin-bottom: 0.3rem;
+        }
+
+        .add-event-btn, .add-video-btn, .submit-btn {
+            background: var(--bluejay-blue);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .add-event-btn:hover, .add-video-btn:hover, .submit-btn:hover {
+            background: var(--bluejay-light);
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .training-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
+            transition: transform 0.3s;
+        }
+
+        .training-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .training-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .training-card-content {
+            padding: 1.5rem;
+        }
+
+        .training-card h3 {
+            color: var(--bluejay-blue);
+            margin-bottom: 1rem;
+        }
+
+        .video-library {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
+        }
+
+        .video-controls {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .video-controls input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.8rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .video-controls input:focus {
+            outline: none;
+            border-color: var(--bluejay-blue);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,48,135,0.1);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: var(--bluejay-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-thumbnail iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .play-icon {
+            font-size: 4rem;
+            opacity: 0.8;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-info h4 {
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .video-actions button {
+            padding: 0.4rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .watch-btn {
+            background: var(--bluejay-blue);
+            color: white;
+        }
+
+        .delete-btn {
+            background: var(--medium-gray);
+            color: white;
+        }
+
+        .video-actions button:hover {
+            opacity: 0.8;
+        }
+
+        .parent-resources {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
+        }
+
+        .resource-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .resource-section h3 {
+            color: var(--bluejay-blue);
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .resource-intro {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--bluejay-blue);
+            font-style: italic;
+            color: var(--black);
+        }
+
+        .resource-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .resource-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-gray);
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .resource-list li:before {
+            content: '✓';
+            color: var(--bluejay-blue);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--bluejay-blue);
+            font-size: 1.8rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--medium-gray);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--bluejay-blue);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        footer {
+            background: var(--black);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .highlight-box {
+            background: var(--bluejay-blue);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .highlight-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .event-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div>
+                <div class="logo">Merrill Bluejays</div>
+                <div class="logo-subtitle">Girls Wrestling</div>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="scrollToSection('benefits')">Why Wrestling</a></li>
+                <li><a onclick="scrollToSection('schedule')">Schedule</a></li>
+                <li><a onclick="scrollToSection('training')">Training</a></li>
+                <li><a onclick="scrollToSection('videos')">Videos</a></li>
+                <li><a onclick="scrollToSection('parents')">Parents</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h1>Your Daughter is <span class="hero-highlight">Stronger</span> Than You Think</h1>
+            <p>At Merrill High School, we're building a girls wrestling program where young women discover their true potential through one of the fastest-growing sports in America.</p>
+            <p style="font-size: 1.2rem; margin-top: 1.5rem;">No experience necessary. All skill levels welcome. Champions built here.</p>
+            <div class="hero-cta">Join the Bluejays Today</div>
+        </div>
+    </div>
+
+    <div class="stats-banner">
+        <div class="container">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Girls Wrestling is Exploding</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>300%</h3>
+                    <p>Growth in participation since 2016</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100+</h3>
+                    <p>Colleges offering scholarships</p>
+                </div>
+                <div class="stat-item">
+                    <h3>#1</h3>
+                    <p>Fastest growing girls sport</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="benefits" class="section">
+        <div class="container">
+            <h2 class="section-title">Why Wrestling Changes Everything</h2>
+            <p class="section-subtitle">Wrestling isn't just a sport—it's a transformation. Here's what your daughter will gain when she steps onto the mat.</p>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🦾</div>
+                    <h3>Unshakeable Confidence</h3>
+                    <p>Nothing builds confidence like wrestling. When your daughter realizes she can push through exhaustion, overcome fear, and compete at the highest level, that confidence translates to every area of her life—from the classroom to future careers.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Mental Toughness That Lasts Forever</h3>
+                    <p>Life is full of challenges. Wrestling teaches young women how to face adversity head-on, embrace discomfort, and come out stronger. These lessons stay with them through college applications, job interviews, and every obstacle they'll face.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💪</div>
+                    <h3>Total Body Strength & Fitness</h3>
+                    <p>Wrestling is one of the most complete workouts available. Your daughter will develop explosive power, cardiovascular endurance, flexibility, and coordination that will benefit her in any sport or physical activity she pursues.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎓</div>
+                    <h3>College Scholarship Opportunities</h3>
+                    <p>With women's wrestling now an NCAA Emerging Sport, scholarships are increasing dramatically every year. Get ahead of the curve—colleges are actively recruiting female wrestlers, and many programs are undersubscribed.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>Real Self-Defense Skills</h3>
+                    <p>Wrestling provides practical, effective self-defense training. Your daughter will learn body awareness, balance, and techniques that actually work. This isn't theory—it's real-world capability that gives parents peace of mind.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">👥</div>
+                    <h3>A Supportive Team Family</h3>
+                    <p>While wrestling is an individual sport, the team bond is unlike any other. Your daughter will be part of a sisterhood that celebrates victories together, supports each other through tough matches, and builds lifelong friendships.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚖️</div>
+                    <h3>Level Playing Field</h3>
+                    <p>In wrestling, girls compete against girls in their exact weight class. Success is earned through dedication, technique, and hard work—not genetics or luck. Every wrestler has a fair shot at being a champion.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Leadership & Independence</h3>
+                    <p>On the mat, there's no one to rely on but yourself. This teaches self-reliance, decision-making under pressure, and leadership qualities that employers and colleges desperately seek. Wrestlers become leaders.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 3rem;">
+                <h3>The Truth About Girls Who Wrestle</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8;">They're not just athletes—they're scholars, leaders, and future CEOs. Studies show that girls who participate in wrestling have higher GPAs, better college attendance rates, and stronger career outcomes than their peers. Wrestling doesn't just build bodies; it builds unstoppable young women.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="schedule" class="section">
+        <div class="container">
+            <h2 class="section-title">Schedule & Events</h2>
+            <p class="section-subtitle">Stay up to date with practices, tournaments, and team events</p>
+            <div class="schedule-container">
+                <div id="events-list"></div>
+                <button class="add-event-btn" onclick="openEventModal()">+ Add Event</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="training" class="section">
+        <div class="container">
+            <h2 class="section-title">Training Excellence</h2>
+            <p class="section-subtitle">World-class training resources to develop champions</p>
+            <div class="training-grid">
+                <div class="training-card">
+                    <div style="background: linear-gradient(135deg, var(--bluejay-blue) 0%, var(--bluejay-light) 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🥋</div>
+                    <div class="training-card-content">
+                        <h3>Technique Development</h3>
+                        <p>Master fundamental and advanced techniques from certified coaches. We break down every move step-by-step so you can execute with confidence in competition.</p>
+                    </div>
+                </div>
+                <div class="training-card">
+                    <div style="background: linear-gradient(135deg, #003087 0%, #0066CC 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">💪</div>
+                    <div class="training-card-content">
+                        <h3>Strength & Conditioning</h3>
+                        <p>Build explosive power, muscular endurance, and the stamina needed to dominate all three periods. Our programs are designed specifically for female athletes.</p>
+                    </div>
+                </div>
+                <div class="training-card">
+                    <div style="background: linear-gradient(135deg, #0047AB 0%, #003087 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🧠</div>
+                    <div class="training-card-content">
+                        <h3>Mental Game</h3>
+                        <p>Learn visualization, pre-match routines, and the psychological strategies that separate good wrestlers from great ones. Wrestling is 90% mental once you're on the mat.</p>
+                    </div>
+                </div>
+                <div class="training-card">
+                    <div style="background: linear-gradient(135deg, #0066CC 0%, #0047AB 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🍎</div>
+                    <div class="training-card-content">
+                        <h3>Nutrition & Recovery</h3>
+                        <p>Fuel your body for peak performance with proper nutrition guidance. Learn healthy weight management, hydration strategies, and recovery techniques.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="videos" class="section">
+        <div class="container">
+            <h2 class="section-title">Video Library</h2>
+            <p class="section-subtitle">Watch, learn, and improve your technique</p>
+            <div class="video-library">
+                <div class="video-controls">
+                    <input type="text" id="video-url" placeholder="Paste YouTube URL or video link...">
+                    <input type="text" id="video-title" placeholder="Video title...">
+                    <button class="add-video-btn" onclick="addVideo()">+ Add Video</button>
+                </div>
+                <div class="video-grid" id="video-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="parents" class="section">
+        <div class="container">
+            <h2 class="section-title">Information for Parents</h2>
+            <p class="section-subtitle">Everything you need to know to support your wrestler</p>
+            <div class="parent-resources">
+                <div class="resource-section">
+                    <h3>Is Wrestling Safe for Girls?</h3>
+                    <div class="resource-intro">
+                        Wrestling is one of the safest contact sports when coached properly—and it's safer for girls than many traditional sports like soccer, basketball, and volleyball. Girls compete exclusively against other girls in their weight class, and our certified coaches prioritize safety above all else.
+                    </div>
+                    <ul class="resource-list">
+                        <li>Lower injury rates than soccer, basketball, and cheerleading according to national data</li>
+                        <li>All coaches are certified and trained in current safety protocols and injury prevention</li>
+                        <li>Girls only compete against girls—no co-ed matches</li>
+                        <li>Weight classes ensure fair and safe competition</li>
+                        <li>Athletic trainers present at all practices and competitions</li>
+                        <li>Comprehensive concussion protocols and monitoring</li>
+                        <li>Emphasis on proper technique reduces injury risk significantly</li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>Getting Started (No Experience Required!)</h3>
+                    <div class="resource-intro">
+                        Most of our best wrestlers came in with zero experience. That's the beauty of wrestling—everyone starts somewhere, and we're here to teach every step. Your daughter doesn't need to be the strongest or most athletic to succeed.
+                    </div>
+                    <ul class="resource-list">
+                        <li>Absolutely no prior wrestling experience necessary—we teach everything from scratch</li>
+                        <li>Basic equipment needed: wrestling shoes, headgear, and comfortable athletic wear (we can help with purchasing)</li>
+                        <li>Practice schedule designed to balance academics, social life, and athletics</li>
+                        <li>Beginners practice separately until they're ready to compete</li>
+                        <li>First tournament is low-pressure and designed for learning</li>
+                        <li>Team fundraising available to offset costs for families</li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>Weight Management Done Right</h3>
+                    <div class="resource-intro">
+                        We take a healthy, science-based approach to weight management. Cutting weight is NOT allowed or encouraged. We emphasize proper nutrition and competing at a healthy, natural weight.
+                    </div>
+                    <ul class="resource-list">
+                        <li>NO weight cutting—athletes compete at healthy, natural weights</li>
+                        <li>Mandatory hydration testing before weigh-ins</li>
+                        <li>Nutritionist consultation available to all wrestlers</li>
+                        <li>Focus on building strength and healthy eating habits, not losing weight</li>
+                        <li>Regular health monitoring and body composition assessments</li>
+                        <li>Parents involved in weight class selection and management plans</li>
+                        <li>We follow WIAA guidelines strictly for athlete health and safety</li>
+                    </ul>
+                </div>
+
+                <div class="resource-section">
+                    <h3>College & Career Opportunities</h3>
+                    <div class="resource-intro">
+                        This is the golden age for female wrestlers. Right now, there are more scholarship opportunities than qualified wrestlers to fill them. Girls who start wrestling in high school have a significant advantage.
+                    </div>
+                    <ul class="resource-list">
+                        <li>Women's wrestling is now an NCAA Emerging Sport with rapidly growing funding</li>
+                        <li>Over 100 colleges actively offering women's wrestling scholarships—and growing every year</li>
+                        <li>Many programs are actively seeking female wrestlers and have scholarships available</li>
+                        <li>College coaches frequently attend high school tournaments recruiting athletes
