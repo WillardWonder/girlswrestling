@@ -1,1510 +1,1165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merrill Bluejays Girls Wrestling</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bluejay-blue: #003087;
-            --bluejay-light: #0047AB;
-            --white: #ffffff;
-            --black: #1a1a1a;
-            --light-gray: #f5f5f5;
-            --medium-gray: #7f8c8d;
-            --accent-blue: #0066CC;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--black);
-            background: var(--white);
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--bluejay-blue) 0%, var(--bluejay-light) 100%);
-            color: white;
-            padding: 1.5rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .logo-subtitle {
-            font-size: 0.9rem;
-            font-weight: normal;
-            letter-spacing: 1px;
-            opacity: 0.95;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
-            cursor: pointer;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-
-        .admin-icon {
-            cursor: pointer;
-            font-size: 1.3rem;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-
-        .admin-icon:hover {
-            opacity: 1;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 48, 135, 0.85), rgba(0, 71, 171, 0.85)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23003087" width="1200" height="600"/><path fill="%230047AB" opacity="0.4" d="M0 300L50 280L100 290L150 270L200 285L250 275L300 290L350 280L400 295L450 285L500 300L550 290L600 305L650 295L700 310L750 300L800 315L850 305L900 320L950 310L1000 325L1050 315L1100 330L1150 320L1200 335V600H0Z"/></svg>') center/cover;
-            color: white;
-            padding: 7rem 0;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero-highlight {
-            color: white;
-            font-weight: bold;
-            text-decoration: underline;
-            text-decoration-color: rgba(255,255,255,0.5);
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            max-width: 800px;
-            margin: 1rem auto;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            line-height: 1.8;
-        }
-
-        .hero-cta {
-            margin-top: 2rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            background: white;
-            color: var(--bluejay-blue);
-            padding: 1rem 3rem;
-            border-radius: 50px;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .section {
-            padding: 4rem 0;
-        }
-
-        .section:nth-child(even) {
-            background: var(--light-gray);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--bluejay-blue);
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--medium-gray);
-            margin-bottom: 3rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--accent-blue);
-        }
-
-        .announcements {
-            background: linear-gradient(135deg, var(--bluejay-blue) 0%, var(--bluejay-light) 100%);
-            color: white;
-            padding: 3rem 0;
-        }
-
-        .announcement-card {
-            background: white;
-            color: var(--black);
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .announcement-card h3 {
-            color: var(--bluejay-blue);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .announcement-date {
-            font-size: 0.9rem;
-            color: var(--medium-gray);
-            margin-bottom: 0.5rem;
-        }
-
-        .program-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .program-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
-            border-left: 5px solid var(--bluejay-blue);
-        }
-
-        .program-card h3 {
-            color: var(--bluejay-blue);
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-
-        .program-card .grade-level {
-            background: var(--bluejay-blue);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            display: inline-block;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .benefit-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-top: 4px solid var(--bluejay-blue);
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 25px rgba(0,48,135,0.2);
-        }
-
-        .benefit-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .benefit-card h3 {
-            color: var(--bluejay-blue);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .benefit-card p {
-            line-height: 1.8;
-            color: var(--black);
-        }
-
-        .stats-banner {
-            background: var(--bluejay-blue);
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .stat-item h3 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
-
-        .schedule-container {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
-        }
-
-        .event-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            background: var(--light-gray);
-            border-radius: 8px;
-            border-left: 4px solid var(--bluejay-blue);
-            transition: transform 0.2s;
-        }
-
-        .event-item:hover {
-            transform: translateX(5px);
-        }
-
-        .event-date {
-            font-weight: bold;
-            color: var(--bluejay-blue);
-            min-width: 120px;
-        }
-
-        .event-details h4 {
-            color: var(--black);
-            margin-bottom: 0.3rem;
-        }
-
-        .add-btn, .submit-btn {
-            background: var(--bluejay-blue);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background 0.3s;
-            margin-top: 1rem;
-            display: none;
-        }
-
-        .add-btn.admin-active, .submit-btn.admin-active {
-            display: inline-block;
-        }
-
-        .add-btn:hover, .submit-btn:hover {
-            background: var(--bluejay-light);
-        }
-
-        .training-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .training-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
-            transition: transform 0.3s;
-        }
-
-        .training-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .training-card-content {
-            padding: 1.5rem;
-        }
-
-        .training-card h3 {
-            color: var(--bluejay-blue);
-            margin-bottom: 1rem;
-        }
-
-        .video-library {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
-        }
-
-        .video-controls {
-            margin-bottom: 2rem;
-            display: none;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .video-controls.admin-active {
-            display: flex;
-        }
-
-        .video-controls input, .video-controls textarea {
-            flex: 1;
-            min-width: 250px;
-            padding: 0.8rem;
-            border: 2px solid var(--light-gray);
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-
-        .video-controls input:focus, .video-controls textarea:focus {
-            outline: none;
-            border-color: var(--bluejay-blue);
-        }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .video-card {
-            background: var(--light-gray);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,48,135,0.1);
-            border-top: 3px solid var(--bluejay-blue);
-        }
-
-        .video-thumbnail {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: var(--bluejay-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .video-thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .play-icon {
-            font-size: 4rem;
-            opacity: 0.8;
-        }
-
-        .video-info {
-            padding: 1rem;
-        }
-
-        .video-info h4 {
-            color: var(--black);
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .video-description {
-            font-size: 0.9rem;
-            color: var(--medium-gray);
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-        }
-
-        .video-highlights {
-            background: var(--light-gray);
-            padding: 0.8rem;
-            border-radius: 6px;
-            margin: 0.8rem 0;
-            border-left: 3px solid var(--bluejay-blue);
-        }
-
-        .video-highlights h5 {
-            color: var(--bluejay-blue);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .video-highlights p {
-            font-size: 0.85rem;
-            color: var(--black);
-            line-height: 1.5;
-        }
-
-        .video-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .video-actions button {
-            padding: 0.5rem 1.2rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: opacity 0.3s;
-            font-weight: 600;
-        }
-
-        .watch-btn {
-            background: var(--bluejay-blue);
-            color: white;
-            flex: 1;
-        }
-
-        .delete-btn {
-            background: var(--medium-gray);
-            color: white;
-            display: none;
-        }
-
-        .delete-btn.admin-active {
-            display: block;
-        }
-
-        .video-actions button:hover {
-            opacity: 0.8;
-        }
-
-        .featured-label {
-            background: var(--bluejay-blue);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-
-        .parent-resources {
-            background: white;
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 4px 12px rgba(0,48,135,0.1);
-        }
-
-        .resource-section {
-            margin-bottom: 2.5rem;
-        }
-
-        .resource-section h3 {
-            color: var(--bluejay-blue);
-            margin-bottom: 1rem;
-            font-size: 1.6rem;
-        }
-
-        .resource-intro {
-            background: var(--light-gray);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--bluejay-blue);
-            font-style: italic;
-            color: var(--black);
-        }
-
-        .resource-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .resource-list li {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--light-gray);
-            padding-left: 2rem;
-            position: relative;
-            line-height: 1.8;
-        }
-
-        .resource-list li:before {
-            content: '✓';
-            color: var(--bluejay-blue);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            font-size: 1.3rem;
-        }
-
-        .contact-box {
-            background: var(--bluejay-blue);
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .contact-box h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-box a {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-header h3 {
-            color: var(--bluejay-blue);
-            font-size: 1.8rem;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--medium-gray);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--black);
-            font-weight: 600;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid var(--light-gray);
-            border-radius: 6px;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--bluejay-blue);
-        }
-
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        footer {
-            background: var(--black);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 4rem;
-        }
-
-        .highlight-box {
-            background: var(--bluejay-blue);
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .highlight-box h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .event-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Merrill Bluejays Girls Wrestling</title>
+  <meta name="description" content="Merrill Bluejays Girls Wrestling (K–12). Programs, schedule, and a curated, filterable video library for technique, aggression, and power."/>
+  <meta property="og:title" content="Merrill Bluejays Girls Wrestling"/>
+  <meta property="og:description" content="K–12 girls wrestling in Merrill, WI. Programs, schedule, and a curated, filterable video library."/>
+  <meta property="og:type" content="website"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bluejay-blue: #003087;
+      --bluejay-light: #0047AB;
+      --white: #ffffff;
+      --black: #1a1a1a;
+      --light-gray: #f5f5f5;
+      --medium-gray: #7f8c8d;
+      --accent-blue: #0066CC;
+
+      --age-elem: #2ecc71;
+      --age-mid: #f39c12;
+      --age-high: #e74c3c;
+      --age-all: #8e44ad;
+    }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: var(--black); background: var(--white); }
+
+    header {
+      background: linear-gradient(135deg, var(--bluejay-blue) 0%, var(--bluejay-light) 100%);
+      color: white; padding: 1.5rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .logo { font-size: 1.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+    .logo-subtitle { font-size: 0.9rem; font-weight: normal; letter-spacing: 1px; opacity: 0.95; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; cursor: pointer; }
+    .nav-links a:hover { opacity: 0.8; }
+    .admin-icon { cursor: pointer; font-size: 1.3rem; opacity: 0.7; transition: opacity 0.3s; }
+    .admin-icon:hover { opacity: 1; }
+
+    .hero {
+      background: linear-gradient(rgba(0, 48, 135, 0.85), rgba(0, 71, 171, 0.85)),
+                  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23003087" width="1200" height="600"/><path fill="%230047AB" opacity="0.4" d="M0 300L50 280L100 290L150 270L200 285L250 275L300 290L350 280L400 295L450 285L500 300L550 290L600 305L650 295L700 310L750 300L800 315L850 305L900 320L950 310L1000 325L1050 315L1100 330L1150 320L1200 335V600H0Z"/></svg>') center/cover;
+      color: white; padding: 7rem 0; text-align: center;
+    }
+    .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    .hero-highlight { color: white; font-weight: bold; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.5); }
+    .hero p { font-size: 1.4rem; max-width: 800px; margin: 1rem auto; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); line-height: 1.8; }
+    .hero-cta { margin-top: 2rem; font-size: 1.2rem; font-weight: 600; background: white; color: var(--bluejay-blue); padding: 1rem 3rem; border-radius: 50px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+
+    .section { padding: 4rem 0; }
+    .section:nth-child(even) { background: var(--light-gray); }
+    .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; color: var(--bluejay-blue); position: relative; padding-bottom: 1rem; }
+    .section-subtitle { text-align: center; font-size: 1.2rem; color: var(--medium-gray); margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .section-title:after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--accent-blue); }
+
+    .announcements { background: linear-gradient(135deg, var(--bluejay-blue) 0%, var(--bluejay-light) 100%); color: white; padding: 3rem 0; }
+    .announcement-card { background: white; color: var(--black); padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .announcement-card h3 { color: var(--bluejay-blue); margin-bottom: 1rem; font-size: 1.5rem; }
+    .announcement-date { font-size: 0.9rem; color: var(--medium-gray); margin-bottom: 0.5rem; }
+
+    .program-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .program-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,48,135,0.1); border-left: 5px solid var(--bluejay-blue); }
+    .program-card h3 { color: var(--bluejay-blue); margin-bottom: 1rem; font-size: 1.4rem; }
+    .program-card .grade-level { background: var(--bluejay-blue); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; display: inline-block; margin-bottom: 1rem; font-weight: 600; }
+
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .benefit-card { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,48,135,0.1); transition: transform 0.3s, box-shadow 0.3s; border-top: 4px solid var(--bluejay-blue); }
+    .benefit-card:hover { transform: translateY(-8px); box-shadow: 0 8px 25px rgba(0,48,135,0.2); }
+    .benefit-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .benefit-card h3 { color: var(--bluejay-blue); margin-bottom: 1rem; font-size: 1.5rem; }
+    .benefit-card p { line-height: 1.8; color: var(--black); }
+
+    .stats-banner { background: var(--bluejay-blue); color: white; padding: 3rem 0; text-align: center; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .stat-item h3 { font-size: 3rem; margin-bottom: 0.5rem; }
+    .stat-item p { font-size: 1.1rem; opacity: 0.95; }
+
+    .schedule-container { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 12px rgba(0,48,135,0.1); }
+    .event-item { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; margin-bottom: 1rem; background: var(--light-gray); border-radius: 8px; border-left: 4px solid var(--bluejay-blue); transition: transform 0.2s; }
+    .event-item:hover { transform: translateX(5px); }
+    .event-date { font-weight: bold; color: var(--bluejay-blue); min-width: 120px; }
+    .event-details h4 { color: var(--black); margin-bottom: 0.3rem; }
+    .event-actions { display: flex; gap: .75rem; align-items: center; }
+    .ics-link { color: var(--bluejay-blue); text-decoration: underline; font-weight: 600; }
+
+    .add-btn, .submit-btn {
+      background: var(--bluejay-blue); color: white; border: none; padding: 0.8rem 2rem; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: background 0.3s; margin-top: 1rem; display: none;
+    }
+    .add-btn.admin-active, .submit-btn.admin-active { display: inline-block; }
+    .add-btn:hover, .submit-btn:hover { background: var(--bluejay-light); }
+    .secondary-btn { background: #fff; color: var(--bluejay-blue); border: 2px solid var(--bluejay-blue); padding: 0.55rem 1rem; border-radius: 6px; font-weight: 700; cursor: pointer; }
+    .secondary-btn:hover { opacity: .9; }
+
+    .training-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .training-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,48,135,0.1); transition: transform 0.3s; }
+    .training-card:hover { transform: translateY(-5px); }
+    .training-card-content { padding: 1.5rem; }
+    .training-card h3 { color: var(--bluejay-blue); margin-bottom: 1rem; }
+
+    .video-library { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 12px rgba(0,48,135,0.1); }
+
+    .filter-bar { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .filter-bar .label { font-weight: 700; color: var(--bluejay-blue); margin-right: 0.5rem; }
+    .filter-pill { border: 2px solid var(--light-gray); background: #fff; border-radius: 999px; padding: 0.4rem 0.9rem; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease; font-weight: 600; }
+    .filter-pill:hover { border-color: var(--accent-blue); }
+    .filter-pill.active { background: var(--bluejay-blue); color: #fff; border-color: var(--bluejay-blue); box-shadow: 0 3px 10px rgba(0,48,135,0.15); }
+
+    .filter-spacer { flex: 1 1 auto; }
+    .search-input, .sort-select {
+      min-width: 220px; padding: 0.6rem 0.8rem; border: 2px solid var(--light-gray); border-radius: 6px; font-size: 0.95rem;
+    }
+    .search-input:focus, .sort-select:focus { outline: none; border-color: var(--bluejay-blue); }
+
+    .video-controls { margin-bottom: 2rem; display: none; gap: 1rem; flex-wrap: wrap; }
+    .video-controls.admin-active { display: flex; }
+    .video-controls input, .video-controls textarea, .video-controls select {
+      flex: 1; min-width: 220px; padding: 0.8rem; border: 2px solid var(--light-gray); border-radius: 6px; font-size: 1rem;
+    }
+    .video-controls input:focus, .video-controls textarea:focus, .video-controls select:focus { outline: none; border-color: var(--bluejay-blue); }
+
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+    .video-card { background: var(--light-gray); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,48,135,0.1); border-top: 3px solid var(--bluejay-blue); }
+    .video-thumbnail { width: 100%; aspect-ratio: 16/9; background: var(--bluejay-blue); display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; position: relative; }
+    .video-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+    .play-icon { font-size: 4rem; opacity: 0.85; }
+
+    .video-info { padding: 1rem; }
+    .video-info h4 { color: var(--black); margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .video-description { font-size: 0.9rem; color: var(--medium-gray); margin-bottom: 0.8rem; line-height: 1.6; }
+    .video-highlights { background: var(--light-gray); padding: 0.8rem; border-radius: 6px; margin: 0.8rem 0; border-left: 3px solid var(--bluejay-blue); }
+    .video-highlights h5 { color: var(--bluejay-blue); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .video-highlights p { font-size: 0.85rem; color: var(--black); line-height: 1.5; }
+
+    .video-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .video-actions button { padding: 0.5rem 1.2rem; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem; transition: opacity 0.3s; font-weight: 600; }
+    .watch-btn { background: var(--bluejay-blue); color: white; flex: 1 0 160px; }
+    .ghost-btn { background: #fff; border: 2px solid var(--light-gray); color: var(--black); }
+    .fav-btn.active { border: 2px solid var(--age-high); color: var(--age-high); background: #fff; }
+    .feature-btn { background: #fff; border: 2px dashed var(--bluejay-blue); color: var(--bluejay-blue); }
+    .delete-btn { background: var(--medium-gray); color: white; display: none; }
+    .delete-btn.admin-active { display: block; }
+    .video-actions button:hover { opacity: 0.88; }
+
+    .featured-label { background: var(--bluejay-blue); color: white; padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; display: inline-block; margin-bottom: 0.5rem; }
+
+    .age-badge { display: inline-block; font-size: 0.77rem; font-weight: 700; letter-spacing: .2px; padding: 0.18rem 0.5rem; border-radius: 6px; color: #fff; margin-bottom: 0.5rem; }
+    .age-elementary { background: var(--age-elem); }
+    .age-middle { background: var(--age-mid); }
+    .age-high { background: var(--age-high); }
+    .age-all { background: var(--age-all); }
+
+    .parent-resources { background: white; border-radius: 12px; padding: 2.5rem; box-shadow: 0 4px 12px rgba(0,48,135,0.1); }
+    .resource-section { margin-bottom: 2.5rem; }
+    .resource-section h3 { color: var(--bluejay-blue); margin-bottom: 1rem; font-size: 1.6rem; }
+    .resource-intro { background: var(--light-gray); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--bluejay-blue); font-style: italic; color: var(--black); }
+    .resource-list { list-style: none; padding-left: 0; }
+    .resource-list li { padding: 1rem 0; border-bottom: 1px solid var(--light-gray); padding-left: 2rem; position: relative; line-height: 1.8; }
+    .resource-list li:before { content: '✓'; color: var(--bluejay-blue); position: absolute; left: 0; font-weight: bold; font-size: 1.3rem; }
+
+    .contact-box { background: var(--bluejay-blue); color: white; padding: 2rem; border-radius: 12px; margin-top: 2rem; text-align: center; }
+    .contact-box h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+    .contact-box a { color: white; text-decoration: underline; }
+
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-content { background: white; padding: 2rem; border-radius: 12px; max-width: 900px; width: 90%; max-height: 90vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    .modal-header h3 { color: var(--bluejay-blue); font-size: 1.8rem; }
+    .close-modal { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--medium-gray); }
+
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; color: var(--black); font-weight: 600; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.8rem; border: 2px solid var(--light-gray); border-radius: 6px; font-size: 1rem; font-family: inherit; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--bluejay-blue); }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+
+    footer { background: var(--black); color: white; text-align: center; padding: 2rem 0; margin-top: 4rem; }
+    .highlight-box { background: var(--bluejay-blue); color: white; padding: 2rem; border-radius: 12px; margin: 2rem 0; text-align: center; }
+    .highlight-box h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+
+    /* Simple toast */
+    #toast { position: fixed; right: 16px; bottom: 16px; background: rgba(34,34,34,0.95); color: #fff; padding: .75rem 1rem; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.25); opacity: 0; transform: translateY(8px); transition: all .25s ease; z-index: 3000; pointer-events: none; }
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .nav-links { gap: 1rem; font-size: 0.9rem; }
+      .section-title { font-size: 2rem; }
+      .event-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .search-input, .sort-select { min-width: 160px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html:focus-within { scroll-behavior: auto !important; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div>
-                <div class="logo">Merrill Bluejays</div>
-                <div class="logo-subtitle">Girls Wrestling K-12</div>
-            </div>
-            <ul class="nav-links">
-                <li><a onclick="scrollToSection('programs')">Programs</a></li>
-                <li><a onclick="scrollToSection('benefits')">Why Wrestling</a></li>
-                <li><a onclick="scrollToSection('schedule')">Schedule</a></li>
-                <li><a onclick="scrollToSection('training')">Training</a></li>
-                <li><a onclick="scrollToSection('videos')">Videos</a></li>
-                <li><a onclick="scrollToSection('parents')">Parents</a></li>
-                <li><span class="admin-icon" onclick="openAdminModal()" title="Admin Login">🔒</span></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+  <nav class="container">
+    <div>
+      <div class="logo">Merrill Bluejays</div>
+      <div class="logo-subtitle">Girls Wrestling K-12</div>
+    </div>
+    <ul class="nav-links">
+      <li><a onclick="scrollToSection('programs')">Programs</a></li>
+      <li><a onclick="scrollToSection('benefits')">Why Wrestling</a></li>
+      <li><a onclick="scrollToSection('schedule')">Schedule</a></li>
+      <li><a onclick="scrollToSection('training')">Training</a></li>
+      <li><a onclick="scrollToSection('videos')">Videos</a></li>
+      <li><a onclick="scrollToSection('parents')">Parents</a></li>
+      <li><span class="admin-icon" onclick="openAdminModal()" title="Admin Login" aria-label="Admin Login">🔒</span></li>
+    </ul>
+  </nav>
+</header>
 
-    <div class="hero">
-        <div class="container">
-            <h1>Girls Are <span class="hero-highlight">Stronger</span> Than You Think</h1>
-            <p>In Merrill, Wisconsin, we're building a comprehensive K-12 girls wrestling program where young women discover their true potential through one of the fastest-growing sports in America.</p>
-            <p style="font-size: 1.2rem; margin-top: 1.5rem;">No experience necessary. All ages welcome. Champions built here.</p>
-            <div class="hero-cta">Join the Bluejays Today</div>
-        </div>
+<div class="hero">
+  <div class="container">
+    <h1>Girls Are <span class="hero-highlight">Stronger</span> Than You Think</h1>
+    <p>In Merrill, Wisconsin, we're building a comprehensive K-12 girls wrestling program where young women discover their true potential through one of the fastest-growing sports in America.</p>
+    <p style="font-size: 1.2rem; margin-top: 1.5rem;">No experience necessary. All ages welcome. Champions built here.</p>
+    <div class="hero-cta">Join the Bluejays Today</div>
+  </div>
+</div>
+
+<section class="announcements">
+  <div class="container">
+    <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem;">Latest News & Announcements</h2>
+    <div id="announcements-list">
+      <div class="announcement-card">
+        <div class="announcement-date">October 2025</div>
+        <h3>🎉 K-12 Girls Wrestling Program Launches!</h3>
+        <p>This year marks the official start of the MERRILL GIRLS K-12 WRESTLING PROGRAM! We're extending our winning tradition to include all female wrestlers from kindergarten through high school. Women's wrestling is the fastest growing sport in the USA, and we're building one of the best programs in Wisconsin.</p>
+      </div>
+    </div>
+    <button class="add-btn" onclick="openAnnouncementModal()">+ Add Announcement</button>
+  </div>
+</section>
+
+<section id="programs" class="section">
+  <div class="container">
+    <h2 class="section-title">Our Programs</h2>
+    <p class="section-subtitle">We offer wrestling opportunities for every age and skill level</p>
+    <div class="program-grid">
+      <div class="program-card">
+        <span class="grade-level">KINDERGARTEN</span>
+        <h3>K-JAYS PROGRAM</h3>
+        <p><strong>When:</strong> January - February</p>
+        <p><strong>Info Available:</strong> Early December</p>
+        <p>Our introductory program for the youngest wrestlers. K-JAYS runs in cooperation with the boys program, with dedicated coaches for our girls.</p>
+      </div>
+      <div class="program-card">
+        <span class="grade-level">GRADES 1-2</span>
+        <h3>ELEMENTARY (Kate Goodrich)</h3>
+        <p><strong>When:</strong> November in-school program</p>
+        <p><strong>Time:</strong> 3:30 - 4:30 PM</p>
+        <p><strong>Cost:</strong> $10 per wrestler</p>
+        <p>Includes: T-shirt, pictures, certificate, and treat. In-school practices at Kate Goodrich Elementary.</p>
+      </div>
+      <div class="program-card">
+        <span class="grade-level">GRADES 3-4</span>
+        <h3>JUNIOR JAYS (Washington Elementary)</h3>
+        <p><strong>When:</strong> November in-school program, then January-February team practices</p>
+        <p><strong>Time:</strong> 3:30 - 4:30 PM</p>
+        <p><strong>Cost:</strong> $10 per wrestler</p>
+        <p>Extended option available to qualify for Youth State Tournament. Merrill hosts the State Qualifier on March 21, 2026!</p>
+      </div>
+      <div class="program-card">
+        <span class="grade-level">GRADES 5-6</span>
+        <h3>PRMS PROGRAM</h3>
+        <p><strong>When:</strong> November in-school program</p>
+        <p><strong>Time:</strong> 3:30 - 4:45 PM (pick up by 5:00)</p>
+        <p><strong>Cost:</strong> $10 per wrestler</p>
+        <p><strong>City Tournament:</strong> Friday, November 14 at 5:00 PM (MHS Fieldhouse)</p>
+        <p>All elementary wrestlers compete, receive team pictures, certificates, and treats!</p>
+      </div>
+      <div class="program-card">
+        <span class="grade-level">GRADES 7-8</span>
+        <h3>MIDDLE SCHOOL PROGRAM</h3>
+        <p><strong>When:</strong> November 3 - December 22, 2025</p>
+        <p><strong>Practice Days:</strong> Monday, Tuesday, Wednesday, Thursday</p>
+        <p><strong>Location:</strong> PRMS</p>
+        <p>6-week program with 1-2 tournaments in December. Extended training options available in January-March.</p>
+      </div>
+      <div class="program-card">
+        <span class="grade-level">HIGH SCHOOL</span>
+        <h3>VARSITY PROGRAM (Year 2!)</h3>
+        <p><strong>Season:</strong> November 17, 2025 - February 28, 2026</p>
+        <p><strong>Nov-Jan Practice:</strong> Mon-Fri, 4:40-6:40 PM</p>
+        <p><strong>Feb Practice:</strong> Mon-Fri, 3:40-5:40 PM</p>
+        <p>Weight room 4:40-5:10, Wrestling room 5:10-6:40. Working toward TEAM State Championships!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-banner">
+  <div class="container">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Girls Wrestling is Exploding</h2>
+    <div class="stats-grid">
+      <div class="stat-item"><h3>64,000+</h3><p>High school participants nationwide</p></div>
+      <div class="stat-item"><h3>76+</h3><p>NCAA programs offering opportunities</p></div>
+      <div class="stat-item"><h3>#1</h3><p>Fastest growing high school sport</p></div>
+      <div class="stat-item"><h3>2026</h3><p>First NCAA championship tournament</p></div>
+    </div>
+  </div>
+</div>
+
+<section id="benefits" class="section">
+  <div class="container">
+    <h2 class="section-title">Why Wrestling Changes Everything</h2>
+    <p class="section-subtitle">Wrestling isn't just a sport—it's a transformation. Here's what every girl will gain when she steps onto the mat.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card"><div class="benefit-icon">🦾</div><h3>Unshakeable Confidence</h3><p>Nothing builds confidence like wrestling. When a girl realizes she can push through exhaustion, overcome fear, and compete at the highest level, that confidence translates to every area of her life—from the classroom to future careers.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">🎯</div><h3>Mental Toughness That Lasts Forever</h3><p>Life is full of challenges. Wrestling teaches young women how to face adversity head-on, embrace discomfort, and come out stronger. These lessons stay with them through college applications, job interviews, and every obstacle they'll face.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">💪</div><h3>Total Body Strength & Fitness</h3><p>Wrestling is one of the most complete workouts available. Girls will develop explosive power, cardiovascular endurance, flexibility, and coordination that will benefit her in any sport or physical activity she pursues.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">🎓</div><h3>College Scholarship Opportunities</h3><p>With women's wrestling now an NCAA championship sport starting in 2026, scholarships are increasing dramatically. Get ahead of the curve—colleges are actively recruiting female wrestlers, and there aren't enough qualified athletes to fill the spots.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">🛡️</div><h3>Real Self-Defense Skills</h3><p>Wrestling provides practical, effective self-defense training. Girls will learn body awareness, balance, and techniques that actually work. This isn't theory—it's real-world capability that lasts a lifetime.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">👥</div><h3>A Supportive Team Family</h3><p>While wrestling is an individual sport, the team bond is unlike any other. Girls will be part of a sisterhood that celebrates victories together, supports each other through tough matches, and builds lifelong friendships.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">⚖️</div><h3>Level Playing Field</h3><p>In wrestling, girls compete against girls in their exact weight class. Success is earned through dedication, technique, and hard work—not genetics or luck. Every wrestler has a fair shot at becoming a champion.</p></div>
+      <div class="benefit-card"><div class="benefit-icon">🚀</div><h3>Leadership & Independence</h3><p>On the mat, there's no one to rely on but yourself. This teaches self-reliance, decision-making under pressure, and leadership qualities that employers and colleges desperately seek. Wrestlers become leaders.</p></div>
     </div>
 
-    <section class="announcements">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 2rem;">Latest News & Announcements</h2>
-            <div id="announcements-list">
-                <div class="announcement-card">
-                    <div class="announcement-date">October 2025</div>
-                    <h3>🎉 K-12 Girls Wrestling Program Launches!</h3>
-                    <p>This year marks the official start of the MERRILL GIRLS K-12 WRESTLING PROGRAM! We're extending our winning tradition to include all female wrestlers from kindergarten through high school. Women's wrestling is the fastest growing sport in the USA, and we're building one of the best programs in Wisconsin.</p>
-                </div>
-            </div>
-            <button class="add-btn" onclick="openAnnouncementModal()">+ Add Announcement</button>
-        </div>
-    </section>
-
-    <section id="programs" class="section">
-        <div class="container">
-            <h2 class="section-title">Our Programs</h2>
-            <p class="section-subtitle">We offer wrestling opportunities for every age and skill level</p>
-            <div class="program-grid">
-                <div class="program-card">
-                    <span class="grade-level">KINDERGARTEN</span>
-                    <h3>K-JAYS PROGRAM</h3>
-                    <p><strong>When:</strong> January - February</p>
-                    <p><strong>Info Available:</strong> Early December</p>
-                    <p>Our introductory program for the youngest wrestlers. K-JAYS runs in cooperation with the boys program, with dedicated coaches for our girls.</p>
-                </div>
-
-                <div class="program-card">
-                    <span class="grade-level">GRADES 1-2</span>
-                    <h3>ELEMENTARY (Kate Goodrich)</h3>
-                    <p><strong>When:</strong> November in-school program</p>
-                    <p><strong>Time:</strong> 3:30 - 4:30 PM</p>
-                    <p><strong>Cost:</strong> $10 per wrestler</p>
-                    <p>Includes: T-shirt, pictures, certificate, and treat. In-school practices at Kate Goodrich Elementary.</p>
-                </div>
-
-                <div class="program-card">
-                    <span class="grade-level">GRADES 3-4</span>
-                    <h3>JUNIOR JAYS (Washington Elementary)</h3>
-                    <p><strong>When:</strong> November in-school program, then January-February team practices</p>
-                    <p><strong>Time:</strong> 3:30 - 4:30 PM</p>
-                    <p><strong>Cost:</strong> $10 per wrestler</p>
-                    <p>Extended option available to qualify for Youth State Tournament. Merrill hosts the State Qualifier on March 21, 2026!</p>
-                </div>
-
-                <div class="program-card">
-                    <span class="grade-level">GRADES 5-6</span>
-                    <h3>PRMS PROGRAM</h3>
-                    <p><strong>When:</strong> November in-school program</p>
-                    <p><strong>Time:</strong> 3:30 - 4:45 PM (pick up by 5:00)</p>
-                    <p><strong>Cost:</strong> $10 per wrestler</p>
-                    <p><strong>City Tournament:</strong> Friday, November 14 at 5:00 PM (MHS Fieldhouse)</p>
-                    <p>All elementary wrestlers compete, receive team pictures, certificates, and treats!</p>
-                </div>
-
-                <div class="program-card">
-                    <span class="grade-level">GRADES 7-8</span>
-                    <h3>MIDDLE SCHOOL PROGRAM</h3>
-                    <p><strong>When:</strong> November 3 - December 22, 2025</p>
-                    <p><strong>Practice Days:</strong> Monday, Tuesday, Wednesday, Thursday</p>
-                    <p><strong>Location:</strong> PRMS</p>
-                    <p>6-week program with 1-2 tournaments in December. Extended training options available in January-March.</p>
-                </div>
-
-                <div class="program-card">
-                    <span class="grade-level">HIGH SCHOOL</span>
-                    <h3>VARSITY PROGRAM (Year 2!)</h3>
-                    <p><strong>Season:</strong> November 17, 2025 - February 28, 2026</p>
-                    <p><strong>Nov-Jan Practice:</strong> Mon-Fri, 4:40-6:40 PM</p>
-                    <p><strong>Feb Practice:</strong> Mon-Fri, 3:40-5:40 PM</p>
-                    <p>Weight room 4:40-5:10, Wrestling room 5:10-6:40. Working toward TEAM State Championships!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="stats-banner">
-        <div class="container">
-            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Girls Wrestling is Exploding</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>64,000+</h3>
-                    <p>High school participants nationwide</p>
-                </div>
-                <div class="stat-item">
-                    <h3>76+</h3>
-                    <p>NCAA programs offering opportunities</p>
-                </div>
-                <div class="stat-item">
-                    <h3>#1</h3>
-                    <p>Fastest growing high school sport</p>
-                </div>
-                <div class="stat-item">
-                    <h3>2026</h3>
-                    <p>First NCAA championship tournament</p>
-                </div>
-            </div>
-        </div>
+    <div class="highlight-box" style="margin-top:3rem;">
+      <h3>The Truth About Girls Who Wrestle</h3>
+      <p style="font-size:1.1rem; line-height:1.8;">They're not just athletes—they're scholars, leaders, and future CEOs. Girls who participate in wrestling develop confidence and skills that set them apart. Wrestling doesn't just build bodies; it builds unstoppable young women who know they can achieve anything they set their minds to. Wrestling builds champions!</p>
     </div>
+  </div>
+</section>
 
-    <section id="benefits" class="section">
-        <div class="container">
-            <h2 class="section-title">Why Wrestling Changes Everything</h2>
-            <p class="section-subtitle">Wrestling isn't just a sport—it's a transformation. Here's what every girl will gain when she steps onto the mat.</p>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">🦾</div>
-                    <h3>Unshakeable Confidence</h3>
-                    <p>Nothing builds confidence like wrestling. When a girl realizes she can push through exhaustion, overcome fear, and compete at the highest level, that confidence translates to every area of her life—from the classroom to future careers.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🎯</div>
-                    <h3>Mental Toughness That Lasts Forever</h3>
-                    <p>Life is full of challenges. Wrestling teaches young women how to face adversity head-on, embrace discomfort, and come out stronger. These lessons stay with them through college applications, job interviews, and every obstacle they'll face.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">💪</div>
-                    <h3>Total Body Strength & Fitness</h3>
-                    <p>Wrestling is one of the most complete workouts available. Girls will develop explosive power, cardiovascular endurance, flexibility, and coordination that will benefit her in any sport or physical activity she pursues.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🎓</div>
-                    <h3>College Scholarship Opportunities</h3>
-                    <p>With women's wrestling now an NCAA championship sport starting in 2026, scholarships are increasing dramatically. Get ahead of the curve—colleges are actively recruiting female wrestlers, and there aren't enough qualified athletes to fill the spots.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🛡️</div>
-                    <h3>Real Self-Defense Skills</h3>
-                    <p>Wrestling provides practical, effective self-defense training. Girls will learn body awareness, balance, and techniques that actually work. This isn't theory—it's real-world capability that lasts a lifetime.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">👥</div>
-                    <h3>A Supportive Team Family</h3>
-                    <p>While wrestling is an individual sport, the team bond is unlike any other. Girls will be part of a sisterhood that celebrates victories together, supports each other through tough matches, and builds lifelong friendships.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">⚖️</div>
-                    <h3>Level Playing Field</h3>
-                    <p>In wrestling, girls compete against girls in their exact weight class. Success is earned through dedication, technique, and hard work—not genetics or luck. Every wrestler has a fair shot at becoming a champion.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🚀</div>
-                    <h3>Leadership & Independence</h3>
-                    <p>On the mat, there's no one to rely on but yourself. This teaches self-reliance, decision-making under pressure, and leadership qualities that employers and colleges desperately seek. Wrestlers become leaders.</p>
-                </div>
-            </div>
-
-            <div class="highlight-box" style="margin-top: 3rem;">
-                <h3>The Truth About Girls Who Wrestle</h3>
-                <p style="font-size: 1.1rem; line-height: 1.8;">They're not just athletes—they're scholars, leaders, and future CEOs. Girls who participate in wrestling develop confidence and skills that set them apart. Wrestling doesn't just build bodies; it builds unstoppable young women who know they can achieve anything they set their minds to. Wrestling builds champions!</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="schedule" class="section">
-        <div class="container">
-            <h2 class="section-title">Schedule & Events</h2>
-            <p class="section-subtitle">Stay up to date with practices, tournaments, and team events</p>
-            <div class="schedule-container">
-                <div id="events-list"></div>
-                <button class="add-btn" onclick="openEventModal()">+ Add Event</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="training" class="section">
-        <div class="container">
-            <h2 class="section-title">Training Excellence</h2>
-            <p class="section-subtitle">World-class training resources to develop champions</p>
-            <div class="training-grid">
-                <div class="training-card">
-                    <div style="background: linear-gradient(135deg, var(--bluejay-blue) 0%, var(--bluejay-light) 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🥋</div>
-                    <div class="training-card-content">
-                        <h3>Technique Development</h3>
-                        <p>Master fundamental and advanced techniques from certified coaches. We break down every move step-by-step so you can execute with confidence in competition.</p>
-                    </div>
-                </div>
-                <div class="training-card">
-                    <div style="background: linear-gradient(135deg, #003087 0%, #0066CC 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">💪</div>
-                    <div class="training-card-content">
-                        <h3>Strength & Conditioning</h3>
-                        <p>Build explosive power, muscular endurance, and the stamina needed to dominate all three periods. Our programs are designed specifically for female athletes.</p>
-                    </div>
-                </div>
-                <div class="training-card">
-                    <div style="background: linear-gradient(135deg, #0047AB 0%, #003087 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🧠</div>
-                    <div class="training-card-content">
-                        <h3>Mental Game</h3>
-                        <p>Learn visualization, pre-match routines, and the psychological strategies that separate good wrestlers from great ones. Wrestling is 90% mental once you're on the mat.</p>
-                    </div>
-                </div>
-                <div class="training-card">
-                    <div style="background: linear-gradient(135deg, #0066CC 0%, #0047AB 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🍎</div>
-                    <div class="training-card-content">
-                        <h3>Nutrition & Recovery</h3>
-                        <p>Fuel your body for peak performance with proper nutrition guidance. Learn healthy weight management, hydration strategies, and recovery techniques.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="videos" class="section">
-        <div class="container">
-            <h2 class="section-title">Video Library</h2>
-            <p class="section-subtitle">Watch elite technique and learn from the best female wrestlers</p>
-            <div class="video-library">
-                <div class="featured-videos">
-                    <h3 style="color: var(--bluejay-blue); margin-bottom: 1.5rem; font-size: 1.8rem;">Featured Championship Matches</h3>
-                    <div class="video-grid" id="featured-videos"></div>
-                </div>
-                
-                <div style="border-top: 2px solid var(--light-gray); padding-top: 2rem; margin-top: 2rem;">
-                    <h3 style="color: var(--bluejay-blue); margin-bottom: 1rem; font-size: 1.5rem;">Additional Training Videos</h3>
-                    <div class="video-controls">
-                        <input type="text" id="video-url" placeholder="Paste YouTube URL or video link...">
-                        <input type="text" id="video-title" placeholder="Video title...">
-                        <textarea id="video-description" placeholder="Brief description (optional)..."></textarea>
-                        <button class="add-btn" onclick="addVideo()">+ Add Video</button>
-                    </div>
-                    <div class="video-grid" id="custom-videos"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="parents" class="section">
-        <div class="container">
-            <h2 class="section-title">Information for Parents</h2>
-            <p class="section-subtitle">Everything you need to know to support your wrestler</p>
-            <div class="parent-resources">
-                <div class="resource-section">
-                    <h3>Is Wrestling Safe for Girls?</h3>
-                    <div class="resource-intro">
-                        Wrestling is one of the safest contact sports when coached properly. Girls compete exclusively against other girls in their weight class, and our certified coaches prioritize safety above all else. Research shows wrestling has lower injury rates than many traditional girls' sports.
-                    </div>
-                    <ul class="resource-list">
-                        <li>Lower injury rates than soccer, basketball, and cheerleading according to national safety data</li>
-                        <li>All coaches are certified and trained in current safety protocols and injury prevention</li>
-                        <li>Girls only compete against girls—no co-ed matches</li>
-                        <li>Weight classes ensure fair and safe competition</li>
-                        <li>Athletic trainers present at all practices and competitions</li>
-                        <li>Comprehensive concussion protocols and monitoring</li>
-                        <li>Emphasis on proper technique reduces injury risk significantly</li>
-                    </ul>
-                </div>
-
-                <div class="resource-section">
-                    <h3>Getting Started (No Experience Required!)</h3>
-                    <div class="resource-intro">
-                        Most of our best wrestlers came in with zero experience. That's the beauty of wrestling—everyone starts somewhere, and we're here to teach every step. Your daughter doesn't need to be the strongest or most athletic to succeed.
-                    </div>
-                    <ul class="resource-list">
-                        <li>Absolutely no prior wrestling experience necessary—we teach everything from scratch</li>
-                        <li>Elementary program cost is only $10 per wrestler (includes t-shirt, pictures, certificate, treats)</li>
-                        <li>Basic equipment needed: wrestling shoes, headgear, and comfortable athletic wear</li>
-                        <li>Practice schedules designed to balance academics, social life, and athletics</li>
-                        <li>Beginners practice separately until they're ready to compete</li>
-                        <li>First tournaments are low-pressure and designed for learning</li>
-                        <li>Remember to send a note to school if your child is staying for practice and not riding the bus home</li>
-                    </ul>
-                </div>
-
-                <div class="resource-section">
-                    <h3>Weight Management Done Right</h3>
-                    <div class="resource-intro">
-                        We take a healthy, science-based approach to weight management. Cutting weight is NOT allowed or encouraged. We emphasize proper nutrition and competing at a healthy, natural weight.
-                    </div>
-                    <ul class="resource-list">
-                        <li>NO weight cutting—athletes compete at healthy, natural weights</li>
-                        <li>Mandatory hydration testing before weigh-ins</li>
-                        <li>Nutritionist consultation available to all wrestlers</li>
-                        <li>Focus on building strength and healthy eating habits, not losing weight</li>
-                        <li>Regular health monitoring and body composition assessments</li>
-                        <li>Parents involved in weight class selection and management plans</li>
-                        <li>We follow WIAA and USA Wrestling guidelines strictly, for athlete health and safety</li>
-                    </ul>
-                </div>
-
-                <div class="resource-section">
-                    <h3>College & Career Opportunities</h3>
-                    <div class="resource-intro">
-                        This is the golden age for female wrestlers. Right now, there are more scholarship opportunities than qualified wrestlers to fill them. Girls who start wrestling now have a significant advantage for college recruitment in the fastest growing sport.
-                    </div>
-                    <ul class="resource-list">
-                        <li>Women's wrestling is now an NCAA championship sport with the first tournament in 2026</li>
-                        <li>Over 76 NCAA programs actively offering women's wrestling opportunities—and growing every year</li>
-                        <li>Many programs are actively seeking female wrestlers and have scholarships available</li>
-                        <li>College coaches frequently attend high school tournaments recruiting athletes</li>
-                        <li>Growing international competition opportunities including World Championships</li>
-                        <li>Life skills translate to success in any career path—wrestlers are known for their work ethic</li>
-                        <li>Network of coaches and mentors to guide college recruitment process</li>
-                    </ul>
-                </div>
-
-                <div class="resource-section">
-                    <h3>How to Support Your Wrestler</h3>
-                    <div class="resource-intro">
-                        Your support makes all the difference. Here's how to be your daughter's biggest champion while helping her develop independence and resilience.
-                    </div>
-                    <ul class="resource-list">
-                        <li>Attend matches and tournaments to show your support—your presence matters</li>
-                        <li>Focus on effort and improvement, not just wins and losses—growth is the goal</li>
-                        <li>Help maintain healthy eating habits and ensure adequate sleep for recovery</li>
-                        <li>Celebrate small victories and learning moments, not just tournament wins</li>
-                        <li>Let coaches handle technique and strategy—trust the process</li>
-                        <li>Volunteer at tournaments and team events to build community</li>
-                        <li>Connect with other wrestling families for carpools, support, and friendship</li>
-                        <li>After tough losses, listen first and encourage—every champion has lost matches</li>
-                        <li>Pick up your elementary wrestlers promptly after practice (4:30 PM for K-4, 5:00 PM for 5-6)</li>
-                    </ul>
-                </div>
-
-                <div class="contact-box">
-                    <h3>Questions? Contact a Coach!</h3>
-                    <p><strong>Email:</strong> <a href="mailto:scott.arneson@mapsedu.org">girlswrestling@mapsedu.org</a></p>
-                    <p style="margin-top: 1.5rem; font-size: 1rem;">KEEP WRESTLING, EVERY DAY IS A NEW MATCH!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Admin Login Modal -->
-    <div id="admin-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Admin Login</h3>
-                <button class="close-modal" onclick="closeAdminModal()">&times;</button>
-            </div>
-            <form onsubmit="adminLogin(event)">
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="admin-password" required placeholder="Enter admin password">
-                </div>
-                <button type="submit" class="submit-btn admin-active">Login</button>
-            </form>
-        </div>
+<section id="schedule" class="section">
+  <div class="container">
+    <h2 class="section-title">Schedule & Events</h2>
+    <p class="section-subtitle">Stay up to date with practices, tournaments, and team events</p>
+    <div class="schedule-container">
+      <div style="display:flex; justify-content:flex-end; gap:.75rem; margin-bottom:1rem;">
+        <button class="secondary-btn" onclick="window.print()">🖨️ Print schedule</button>
+      </div>
+      <div id="events-list"></div>
+      <button class="add-btn" onclick="openEventModal()">+ Add Event</button>
     </div>
+  </div>
+</section>
 
-    <!-- Event Modal -->
-    <div id="event-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add Event</h3>
-                <button class="close-modal" onclick="closeEventModal()">&times;</button>
-            </div>
-            <form onsubmit="saveEvent(event)">
-                <div class="form-group">
-                    <label>Event Date</label>
-                    <input type="date" id="event-date" required>
-                </div>
-                <div class="form-group">
-                    <label>Event Name</label>
-                    <input type="text" id="event-name" required placeholder="Tournament, Practice, etc.">
-                </div>
-                <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" id="event-location" required placeholder="Venue or address">
-                </div>
-                <div class="form-group">
-                    <label>Details</label>
-                    <textarea id="event-details" placeholder="Additional information..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn admin-active">Save Event</button>
-            </form>
-        </div>
+<section id="training" class="section">
+  <div class="container">
+    <h2 class="section-title">Training Excellence</h2>
+    <p class="section-subtitle">World-class training resources to develop champions</p>
+    <div class="training-grid">
+      <div class="training-card">
+        <div style="background: linear-gradient(135deg, var(--bluejay-blue) 0%, var(--bluejay-light) 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🥋</div>
+        <div class="training-card-content"><h3>Technique Development</h3><p>Master fundamental and advanced techniques from certified coaches. We break down every move step-by-step so you can execute with confidence in competition.</p></div>
+      </div>
+      <div class="training-card">
+        <div style="background: linear-gradient(135deg, #003087 0%, #0066CC 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">💪</div>
+        <div class="training-card-content"><h3>Strength & Conditioning</h3><p>Build explosive power, muscular endurance, and the stamina needed to dominate all three periods. Our programs are designed specifically for female athletes.</p></div>
+      </div>
+      <div class="training-card">
+        <div style="background: linear-gradient(135deg, #0047AB 0%, #003087 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🧠</div>
+        <div class="training-card-content"><h3>Mental Game</h3><p>Learn visualization, pre-match routines, and the psychological strategies that separate good wrestlers from great ones. Wrestling is 90% mental once you're on the mat.</p></div>
+      </div>
+      <div class="training-card">
+        <div style="background: linear-gradient(135deg, #0066CC 0%, #0047AB 100%); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🍎</div>
+        <div class="training-card-content"><h3>Nutrition & Recovery</h3><p>Fuel your body for peak performance with proper nutrition guidance. Learn healthy weight management, hydration strategies, and recovery techniques.</p></div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Announcement Modal -->
-    <div id="announcement-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add Announcement</h3>
-                <button class="close-modal" onclick="closeAnnouncementModal()">&times;</button>
-            </div>
-            <form onsubmit="saveAnnouncement(event)">
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="text" id="announcement-date" required placeholder="e.g., November 2025">
-                </div>
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" id="announcement-title" required placeholder="Announcement title">
-                </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea id="announcement-message" required placeholder="Announcement details..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn admin-active">Save Announcement</button>
-            </form>
+<section id="videos" class="section">
+  <div class="container">
+    <h2 class="section-title">Video Library</h2>
+    <p class="section-subtitle">Watch elite technique and learn from the best female wrestlers</p>
+
+    <div class="video-library">
+      <!-- Featured auto-generated -->
+      <div class="featured-videos" id="featured-wrapper">
+        <h3 style="color: var(--bluejay-blue); margin-bottom: 1.5rem; font-size: 1.8rem;">Featured Championship Matches</h3>
+        <div class="video-grid" id="featured-videos"></div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div style="border-top: 2px solid var(--light-gray); padding-top: 1.5rem; margin-top: 2rem;">
+        <div class="filter-bar" id="video-filter">
+          <span class="label">Explore:</span>
+          <button class="filter-pill active" data-filter="all" role="button" aria-pressed="true">All</button>
+          <button class="filter-pill" data-filter="elementary" role="button" aria-pressed="false">Elementary</button>
+          <button class="filter-pill" data-filter="middle" role="button" aria-pressed="false">Middle School</button>
+          <button class="filter-pill" data-filter="high" role="button" aria-pressed="false">High School</button>
+          <button class="filter-pill" data-filter="favorites" role="button" aria-pressed="false">★ Favorites</button>
+          <span class="filter-spacer"></span>
+          <input class="search-input" id="video-search" type="search" placeholder="Search videos…" aria-label="Search videos">
+          <select class="sort-select" id="video-sort" aria-label="Sort videos">
+            <option value="default">Sort: Default</option>
+            <option value="az">Sort: A–Z</option>
+          </select>
         </div>
+
+        <!-- Curated + search results grid -->
+        <div class="video-grid" id="curated-videos"></div>
+      </div>
+
+      <!-- Custom / Admin-add section -->
+      <div id="additional-section" style="border-top: 2px solid var(--light-gray); padding-top: 2rem; margin-top: 2rem;">
+        <h3 style="color: var(--bluejay-blue); margin-bottom: 1rem; font-size: 1.5rem;">Additional Training Videos</h3>
+        <p style="color: var(--medium-gray); margin-bottom: 0.75rem; font-size: 0.95rem;">Tip: The filters and search above also apply to videos added by the team.</p>
+        <div class="video-controls">
+          <input type="text" id="video-url" placeholder="Paste YouTube URL, TikTok link, or MP4...">
+          <input type="text" id="video-title" placeholder="Video title...">
+          <select id="video-age" title="Age group for this video">
+            <option value="all">All Ages</option>
+            <option value="elementary">Elementary</option>
+            <option value="middle">Middle School</option>
+            <option value="high">High School</option>
+          </select>
+          <textarea id="video-description" placeholder="Brief description (optional)..."></textarea>
+          <button class="add-btn" onclick="addVideo()">+ Add Video</button>
+        </div>
+        <div class="video-grid" id="custom-videos"></div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- Video Modal -->
-    <div id="video-modal" class="modal">
-        <div class="modal-content" style="max-width: 900px;">
-            <div class="modal-header">
-                <h3 id="video-modal-title">Video Title</h3>
-                <button class="close-modal" onclick="closeVideoModal()">&times;</button>
-            </div>
-            <div id="video-modal-player"></div>
-        </div>
+<section id="parents" class="section">
+  <div class="container">
+    <h2 class="section-title">Information for Parents</h2>
+    <p class="section-subtitle">Everything you need to know to support your wrestler</p>
+    <div class="parent-resources">
+      <div class="resource-section">
+        <h3>Is Wrestling Safe for Girls?</h3>
+        <div class="resource-intro">Wrestling is one of the safest contact sports when coached properly. Girls compete exclusively against other girls in their weight class, and our certified coaches prioritize safety above all else. Research shows wrestling has lower injury rates than many traditional girls' sports.</div>
+        <ul class="resource-list">
+          <li>Lower injury rates than soccer, basketball, and cheerleading according to national safety data</li>
+          <li>All coaches are certified and trained in current safety protocols and injury prevention</li>
+          <li>Girls only compete against girls—no co-ed matches</li>
+          <li>Weight classes ensure fair and safe competition</li>
+          <li>Athletic trainers present at all practices and competitions</li>
+          <li>Comprehensive concussion protocols and monitoring</li>
+          <li>Emphasis on proper technique reduces injury risk significantly</li>
+        </ul>
+      </div>
+
+      <div class="resource-section">
+        <h3>Getting Started (No Experience Required!)</h3>
+        <div class="resource-intro">Most of our best wrestlers came in with zero experience. That's the beauty of wrestling—everyone starts somewhere, and we're here to teach every step. Your daughter doesn't need to be the strongest or most athletic to succeed.</div>
+        <ul class="resource-list">
+          <li>Absolutely no prior wrestling experience necessary—we teach everything from scratch</li>
+          <li>Elementary program cost is only $10 per wrestler (includes t-shirt, pictures, certificate, treats)</li>
+          <li>Basic equipment needed: wrestling shoes, headgear, and comfortable athletic wear</li>
+          <li>Practice schedules designed to balance academics, social life, and athletics</li>
+          <li>Beginners practice separately until they're ready to compete</li>
+          <li>First tournaments are low-pressure and designed for learning</li>
+          <li>Remember to send a note to school if your child is staying for practice and not riding the bus home</li>
+        </ul>
+      </div>
+
+      <div class="resource-section">
+        <h3>Weight Management Done Right</h3>
+        <div class="resource-intro">We take a healthy, science-based approach to weight management. Cutting weight is NOT allowed or encouraged. We emphasize proper nutrition and competing at a healthy, natural weight.</div>
+        <ul class="resource-list">
+          <li>NO weight cutting—athletes compete at healthy, natural weights</li>
+          <li>Mandatory hydration testing before weigh-ins</li>
+          <li>Nutritionist consultation available to all wrestlers</li>
+          <li>Focus on building strength and healthy eating habits, not losing weight</li>
+          <li>Regular health monitoring and body composition assessments</li>
+          <li>Parents involved in weight class selection and management plans</li>
+          <li>We follow WIAA and USA Wrestling guidelines strictly, for athlete health and safety</li>
+        </ul>
+      </div>
+
+      <div class="resource-section">
+        <h3>College & Career Opportunities</h3>
+        <div class="resource-intro">This is the golden age for female wrestlers. Right now, there are more scholarship opportunities than qualified wrestlers to fill them. Girls who start wrestling now have a significant advantage for college recruitment in the fastest growing sport.</div>
+        <ul class="resource-list">
+          <li>Women's wrestling is now an NCAA championship sport with the first tournament in 2026</li>
+          <li>Over 76 NCAA programs actively offering women's wrestling opportunities—and growing every year</li>
+          <li>Many programs are actively seeking female wrestlers and have scholarships available</li>
+          <li>College coaches frequently attend high school tournaments recruiting athletes</li>
+          <li>Growing international competition opportunities including World Championships</li>
+          <li>Life skills translate to success in any career path—wrestlers are known for their work ethic</li>
+          <li>Network of coaches and mentors to guide college recruitment process</li>
+        </ul>
+      </div>
+
+      <div class="resource-section">
+        <h3>How to Support Your Wrestler</h3>
+        <div class="resource-intro">Your support makes all the difference. Here's how to be your daughter's biggest champion while helping her develop independence and resilience.</div>
+        <ul class="resource-list">
+          <li>Attend matches and tournaments to show your support—your presence matters</li>
+          <li>Focus on effort and improvement, not just wins and losses—growth is the goal</li>
+          <li>Help maintain healthy eating habits and ensure adequate sleep for recovery</li>
+          <li>Celebrate small victories and learning moments, not just tournament wins</li>
+          <li>Let coaches handle technique and strategy—trust the process</li>
+          <li>Volunteer at tournaments and team events to build community</li>
+          <li>Connect with other wrestling families for carpools, support, and friendship</li>
+          <li>After tough losses, listen first and encourage—every champion has lost matches</li>
+          <li>Pick up your elementary wrestlers promptly after practice (4:30 PM for K-4, 5:00 PM for 5-6)</li>
+        </ul>
+      </div>
+
+      <div class="contact-box">
+        <h3>Questions? Contact a Coach!</h3>
+        <p><strong>Email:</strong> <a href="mailto:scott.arneson@mapsedu.org">girlswrestling@mapsedu.org</a></p>
+        <p style="margin-top: 1.5rem; font-size: 1rem;">KEEP WRESTLING, EVERY DAY IS A NEW MATCH!</p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Merrill Bluejays Girls Wrestling Program. Building champions on and off the mat.</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">Merrill, Wisconsin | Extending the Winning Tradition</p>
+<!-- Admin Login Modal -->
+<div id="admin-modal" class="modal" aria-modal="true" role="dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Admin Login</h3>
+      <button class="close-modal" onclick="closeAdminModal()" aria-label="Close">&times;</button>
+    </div>
+    <form onsubmit="adminLogin(event)">
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="admin-password" required placeholder="Enter admin password"/>
+      </div>
+      <button type="submit" class="submit-btn admin-active">Login</button>
+    </form>
+  </div>
+</div>
+
+<!-- Event Modal -->
+<div id="event-modal" class="modal" aria-modal="true" role="dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Add Event</h3>
+      <button class="close-modal" onclick="closeEventModal()" aria-label="Close">&times;</button>
+    </div>
+    <form onsubmit="saveEvent(event)">
+      <div class="form-group">
+        <label>Event Date</label>
+        <input type="date" id="event-date" required/>
+      </div>
+      <div class="form-group">
+        <label>Event Name</label>
+        <input type="text" id="event-name" required placeholder="Tournament, Practice, etc."/>
+      </div>
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" id="event-location" required placeholder="Venue or address"/>
+      </div>
+      <div class="form-group">
+        <label>Details</label>
+        <textarea id="event-details" placeholder="Additional information..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn admin-active">Save Event</button>
+    </form>
+  </div>
+</div>
+
+<!-- Announcement Modal -->
+<div id="announcement-modal" class="modal" aria-modal="true" role="dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Add Announcement</h3>
+      <button class="close-modal" onclick="closeAnnouncementModal()" aria-label="Close">&times;</button>
+    </div>
+    <form onsubmit="saveAnnouncement(event)">
+      <div class="form-group">
+        <label>Date</label>
+        <input type="text" id="announcement-date" required placeholder="e.g., November 2025"/>
+      </div>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" id="announcement-title" required placeholder="Announcement title"/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="announcement-message" required placeholder="Announcement details..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn admin-active">Save Announcement</button>
+    </form>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div id="video-modal" class="modal" aria-modal="true" role="dialog">
+  <div class="modal-content" style="max-width: 900px;">
+    <div class="modal-header">
+      <h3 id="video-modal-title">Video Title</h3>
+      <button class="close-modal" onclick="closeVideoModal()" aria-label="Close">&times;</button>
+    </div>
+    <div id="video-modal-player"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Merrill Bluejays Girls Wrestling Program. Building champions on and off the mat.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">Merrill, Wisconsin | Extending the Winning Tradition</p>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsTeam",
+  "name": "Merrill Bluejays Girls Wrestling",
+  "sport": "Wrestling",
+  "areaServed": "Merrill, Wisconsin",
+  "founder": "Merrill Area Public Schools",
+  "memberOf": {
+    "@type": "SportsOrganization",
+    "name": "WIAA"
+  }
+}
+</script>
+
+<script>
+  const ADMIN_PASSWORD = 'bluejays2025';
+  let isAdminLoggedIn = false;
+
+  // --- Storage helpers ---
+  const STORE_KEYS = {
+    events: 'mbjw_events',
+    announcements: 'mbjw_announcements',
+    customVideos: 'mbjw_customVideos',
+    favorites: 'mbjw_favorites',
+    featuredOverrides: 'mbjw_featured_overrides'
+  };
+  const storage = {
+    load(key, fallback) {
+      try {
+        const v = localStorage.getItem(key);
+        return v ? JSON.parse(v) : (fallback ?? null);
+      } catch { return fallback ?? null; }
+    },
+    save(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+    }
+  };
+
+  // --- Data (persisted where appropriate) ---
+  let events = [];
+  let customVideos = [];
+  let favorites = [];
+  let featuredOverrides = {}; // id -> boolean (force featured true/false)
+
+  const defaultAnnouncements = [
+    {
+      id: 1,
+      date: 'October 2025',
+      title: '🎉 K-12 Girls Wrestling Program Launches!',
+      message: "This year marks the official start of the MERRILL GIRLS K-12 WRESTLING PROGRAM! We're extending our winning tradition to include all female wrestlers from kindergarten through high school. Women's wrestling is the fastest growing sport in the USA, and we're building one of the best programs in Wisconsin."
+    }
+  ];
+  let announcements = [];
+
+  // --- Curated videos (all 20) ---
+  const curatedVideos = [
+    // Elementary (1–5)
+    { id:'e1', youtubeId:'DdYKJL_9LF0', title:'Beginner Skills for Youth Wrestlers', subtitle:'Elementary Basics', description:'Demonstrates stance, motion, and the most important basic wrestling skills—perfect for true beginners.', whatsGood:'Perfect primer for stance, motion, and core youth skills.', whatToWatch:'Solid stance → motion → level change habits.', ageGroup:'elementary', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=DdYKJL_9LF0', tags:['fundamentals','stance','motion'] },
+    { id:'e2', youtubeId:'UZHMkCYDnu4', title:'Youth Wrestling: Takedown Fundamentals', subtitle:'Elementary Offense', description:'Breaks down fundamental takedowns—great for building aggressive offense early.', whatsGood:'Clear entries, finishes, and habits for confident shots.', whatToWatch:'Penetration step, head position, tight finishes.', ageGroup:'elementary', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=UZHMkCYDnu4', tags:['takedowns','offense','fundamentals'] },
+    { id:'e3', youtubeId:'sXXB1FzEQuI', title:'9-Year-Old Girl Makes State Wrestling History', subtitle:'Elementary Competition', description:'Shows real competitive technique and perseverance by a young female athlete at the state level.', whatsGood:'Mindset + technique under pressure; great inspiration.', whatToWatch:'Reshots, mat awareness, finishing when it matters.', ageGroup:'elementary', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=sXXB1FzEQuI', tags:['inspiration','competition'] },
+    { id:'e4', youtubeId:'60mkBvm0E2E', title:'Kid’s FIRST Time WRESTLING!', subtitle:'First-Practice Look', description:'Authentic first practice—foundational drills and the importance of learning basics.', whatsGood:'Warmups, partner work, and the first-day learning curve.', whatToWatch:'Drill flow: stance→shots→top/bottom positions.', ageGroup:'elementary', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=60mkBvm0E2E', tags:['practice','fundamentals'] },
+    { id:'e5', tiktokId:'7500415597923044639', url:'https://www.tiktok.com/@wlfwwrestling/video/7500415597923044639', title:'TikTok: Tough Girls in Folkstyle Wrestling Showcase', subtitle:'Short Highlights', description:'Short, powerful clips highlighting young girls’ aggression and good form in live situations.', whatsGood:'Quick-hit aggression, finishes, and live-scramble instincts.', whatToWatch:'Transitions in real time; mat returns and pressure.', ageGroup:'elementary', isProtected:true, sourceUrl:'https://www.tiktok.com/@wlfwwrestling/video/7500415597923044639', tags:['highlights','aggression'] },
+
+    // Middle School (6–10)
+    { id:'m6', youtubeId:'MEJr15XQlpQ', title:'2024 Girls Middle School: Claymont vs Carrollton', subtitle:'Full Dual Meet', description:'Full-length dual emphasizing clean technique and match management.', whatsGood:'Pace control, top/bottom work, dual strategy.', whatToWatch:'Ride pressure, mat returns, pivotal sequences.', ageGroup:'middle', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=MEJr15XQlpQ', tags:['dual','management'] },
+    { id:'m7', youtubeId:'YaX6LrKOSEM', title:'2023 Super 32 Girls Folkstyle 108 lbs Finals', subtitle:'National-Level MS Action', description:'Elite middle schoolers executing fast, technical wrestling.', whatsGood:'Shot chains, re-attacks, scramble composure at speed.', whatToWatch:'Hand fighting to clean shots; chain finishes.', ageGroup:'middle', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=YaX6LrKOSEM', tags:['nationals','speed','scrambles'] },
+    { id:'m8', youtubeId:'gxgEMeokU08', title:'Middle School Girls 105-110 — Jazrine Nieto (Azle)', subtitle:'Transitions & Defense', description:'Transitions, chaining moves, and defensive skills in real matches.', whatsGood:'Mat returns, reshots, defense-to-offense scoring.', whatToWatch:'Counter attacks off opponent’s pressure.', ageGroup:'middle', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=gxgEMeokU08', tags:['defense','transitions'] },
+    { id:'m9', youtubeId:'de3P-s0bjnk', title:'RMS Girls Wrestling Match Compilation', subtitle:'Positioning & Hand Fighting', description:'Highlights positioning, hand fighting, and aggressive mat tactics.', whatsGood:'Hand control, snaps, and mat awareness sequences.', whatToWatch:'Set-ups from ties; finishing clean after snaps.', ageGroup:'middle', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=de3P-s0bjnk', tags:['hand-fighting','positioning'] },
+    { id:'m10', youtubeId:'9IKpPVmBdns', title:'Middle School Girls: Green Cove vs Wakulla', subtitle:'Relentless Pressure', description:'Relentless mat returns, aggressive pinning attempts, and hustle.', whatsGood:'Pressure rides and pin pursuit; great urgency.', whatToWatch:'Transitions from rides to nearfall.', ageGroup:'middle', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=9IKpPVmBdns', tags:['intensity','pinning'] },
+
+    // High School (11–15)
+    { id:'h11', youtubeId:'SiLSbOJIDQA', title:'First EVER PIAA Girls HS State Wrestling Finals', subtitle:'Historic PA State Championship', description:"Milestone event for girls' wrestling—motivating and advanced.", whatsGood:'Relentless hand fighting, composed scrambles.', whatToWatch:'Strategic mat returns, pace management.', ageGroup:'high', isProtected:true, isFeatured:true, sourceUrl:'https://www.youtube.com/watch?v=SiLSbOJIDQA', tags:['state','finals','history'] },
+    { id:'h12', youtubeId:'yLbBPOvmtro', title:'Northwest Invite Girls Finals – Full Matches', subtitle:'Elite HS Finals', description:'Intense hand fighting, explosive takedowns, and smart mat control.', whatsGood:'Setups to explosive attacks; ride time and returns.', whatToWatch:'Finish discipline and mat awareness.', ageGroup:'high', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=yLbBPOvmtro', tags:['finals','takedowns'] },
+    { id:'h13', youtubeId:'T7ZCyK6dvDs', title:'2025 PIAA Girls State Wrestling Championship Finals', subtitle:'Modern State Championship', description:'Advanced techniques and decisive scoring.', whatsGood:'Scrambles, re-sets, championship composure.', whatToWatch:'Reattacks and ride-to-turn sequences.', ageGroup:'high', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=T7ZCyK6dvDs', tags:['state','finals','composure'] },
+    { id:'h14', youtubeId:'Nqtj3JmObU0', title:'District XI Girls Wrestling Championships', subtitle:'Action-Packed HS', description:'High-speed scrambles and great exchanges.', whatsGood:'Chain attacks and counter-wrestling.', whatToWatch:'Scoring in transitions and reshots.', ageGroup:'high', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=Nqtj3JmObU0', tags:['scrambles','counter'] },
+    { id:'h15', youtubeId:'SFdyv6Pmj1I', title:'Warren/Sussex Girls Tournament – 114 lbs Final', subtitle:'Non-Stop Attacks', description:'Non-stop attacks, creative moves, and smart defense.', whatsGood:'Shot variety, reshots, and awareness.', whatToWatch:'Transitions from neutral to turns.', ageGroup:'high', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=SFdyv6Pmj1I', tags:['attacks','variety'] },
+
+    // All Ages / Highlights (16–20)
+    { id:'a16', youtubeId:'DK_6Y29nr38', title:'Mikayla Perkins vs Anna Buurma', subtitle:'2025 16U Girls Folkstyle Nationals', description:'High-level, action-packed championship match perfect for technique + grit.', whatsGood:'Intense scrambles, technical hand fighting, big moments.', whatToWatch:'Turning defense into points; explosive pin.', ageGroup:'all', isProtected:true, isFeatured:true, sourceUrl:'https://www.youtube.com/watch?v=DK_6Y29nr38', tags:['16U','nationals','scrambles'] },
+    { id:'a17', youtubeId:'mBXb_WJ63Y8', title:'Caylee Preston – Burnt Mountain Pin', subtitle:'Girls Folkstyle Wrestling', description:'Fast-paced match highlighting aggressive wrestling and finishes.', whatsGood:'Powerful mat returns and pinning skills.', whatToWatch:'Transitions takedown→pin; hip control.', ageGroup:'all', isProtected:true, isFeatured:true, sourceUrl:'https://www.youtube.com/watch?v=mBXb_WJ63Y8', tags:['pinning','aggression'] },
+    { id:'a18', youtubeId:'HAhWpV6wPpM', title:'Girls Wrestling – Very Aggressive Moves', subtitle:'Highlight Compilation', description:'Inspiring team motivator; aggressive techniques across matches.', whatsGood:'Quick takedowns, creative reversals, powerful finishes.', whatToWatch:'Openings that lead to big scores.', ageGroup:'all', isProtected:true, isFeatured:true, sourceUrl:'https://www.youtube.com/watch?v=HAhWpV6wPpM', tags:['highlights','aggression','reversals'] },
+    { id:'a19', youtubeId:'CHzXTxv8hhY', title:'Breaking Barriers: High School Girls Wrestling', subtitle:'Doc + Technique Insights', description:'Documentary segments with technical breakdowns; grit and resilience.', whatsGood:'Mindset + technique vignettes.', whatToWatch:'Composure under pressure.', ageGroup:'all', isProtected:true, sourceUrl:'https://www.youtube.com/watch?v=CHzXTxv8hhY', tags:['documentary','mindset'] },
+    { id:'a20', youtubePlaylistId:'PLebRinBUOwYJjRtUm-hZuCqz1MnSLw7_N', title:'High School Girls Wrestling – Playlist', subtitle:'Curated Technique Matches', description:'Collection of technical and intense girls’ matches across levels.', whatsGood:'A go-to playlist for varied scenarios and breakdowns.', whatToWatch:'Pick a match; focus on setups and finishes.', ageGroup:'all', isProtected:true, sourceUrl:'https://www.youtube.com/playlist?list=PLebRinBUOwYJjRtUm-hZuCqz1MnSLw7_N', tags:['playlist','technique'] }
+  ];
+
+  // --- UI helpers ---
+  function scrollToSection(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(()=> el.classList.remove('show'), 1800);
+  }
+
+  // --- Admin auth ---
+  function openAdminModal() { document.getElementById('admin-modal').classList.add('active'); }
+  function closeAdminModal() { document.getElementById('admin-modal').classList.remove('active'); document.getElementById('admin-password').value=''; }
+  function adminLogin(e) {
+    e.preventDefault();
+    const password = document.getElementById('admin-password').value;
+    if (password === ADMIN_PASSWORD) {
+      isAdminLoggedIn = true;
+      updateAdminUI();
+      closeAdminModal();
+      alert('Admin access granted! (Note: On a static site, this only hides/shows controls.)');
+    } else {
+      alert('Incorrect password');
+    }
+  }
+  function updateAdminUI() {
+    const addButtons = document.querySelectorAll('.add-btn');
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    const videoControls = document.querySelectorAll('.video-controls');
+    if (isAdminLoggedIn) {
+      addButtons.forEach(btn => btn.classList.add('admin-active'));
+      deleteButtons.forEach(btn => btn.classList.add('admin-active'));
+      videoControls.forEach(ctrl => ctrl.classList.add('admin-active'));
+    } else {
+      addButtons.forEach(btn => btn.classList.remove('admin-active'));
+      deleteButtons.forEach(btn => btn.classList.remove('admin-active'));
+      videoControls.forEach(ctrl => ctrl.classList.remove('admin-active'));
+    }
+    renderVideos(); // so feature buttons render correctly
+  }
+
+  // --- Events & announcements ---
+  function openEventModal() { if (!isAdminLoggedIn) return alert('Please login as admin first'); document.getElementById('event-modal').classList.add('active'); }
+  function closeEventModal() { document.getElementById('event-modal').classList.remove('active'); ['event-date','event-name','event-location','event-details'].forEach(id=>document.getElementById(id).value=''); }
+
+  function saveEvent(e) {
+    e.preventDefault();
+    const event = { id: Date.now(), date: document.getElementById('event-date').value, name: document.getElementById('event-name').value, location: document.getElementById('event-location').value, details: document.getElementById('event-details').value };
+    events.push(event);
+    events.sort((a,b)=> new Date(a.date) - new Date(b.date));
+    storage.save(STORE_KEYS.events, events);
+    renderEvents();
+    closeEventModal();
+  }
+  function deleteEvent(id) {
+    if (!isAdminLoggedIn) return;
+    const idx = events.findIndex(e=>e.id===id);
+    if (idx>-1) { events.splice(idx,1); storage.save(STORE_KEYS.events, events); renderEvents(); }
+  }
+  function downloadICS(eventId) {
+    const ev = events.find(e=>e.id===eventId);
+    if (!ev) return;
+    const start = new Date(ev.date);
+    const ymd = (d) => d.toISOString().slice(0,10).replace(/-/g,'');
+    const dtstart = ymd(start);
+    const dtend = ymd(new Date(start.getTime() + 24*60*60*1000));
+    const uid = `${eventId}@merrill-bluejays`;
+    const now = new Date();
+    const dtstamp = now.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+    const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Merrill Bluejays Girls Wrestling//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:${uid}
+DTSTAMP:${dtstamp}
+DTSTART;VALUE=DATE:${dtstart}
+DTEND;VALUE=DATE:${dtend}
+SUMMARY:${(ev.name||'Event').replace(/\n/g,' ')}
+LOCATION:${(ev.location||'').replace(/\n/g,' ')}
+DESCRIPTION:${(ev.details||'').replace(/\n/g,' ')}
+END:VEVENT
+END:VCALENDAR`;
+    const blob = new Blob([ics], {type:'text/calendar'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (ev.name || 'event') + '.ics';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+  function renderEvents() {
+    const container = document.getElementById('events-list');
+    if (!events.length) {
+      container.innerHTML = '<p style="text-align: center; color: var(--medium-gray); padding: 2rem;">No events scheduled yet. Contact Coach Arnie for upcoming events!</p>';
+      return;
+    }
+    container.innerHTML = events.map(event => {
+      const date = new Date(event.date);
+      const formatted = isNaN(date) ? event.date : date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      const del = isAdminLoggedIn ? `<button onclick="deleteEvent(${event.id})" class="delete-btn admin-active">Delete</button>` : '';
+      return `
+        <div class="event-item">
+          <div class="event-date">${formatted}</div>
+          <div class="event-details" style="flex:1;">
+            <h4>${event.name}</h4>
+            <p style="color: var(--medium-gray); margin-bottom: 0.3rem;">${event.location}</p>
+            ${event.details ? `<p style="font-size:0.9rem;">${event.details}</p>` : ''}
+            <div class="event-actions">
+              <a href="#" class="ics-link" onclick="downloadICS(${event.id});return false;">Add to Calendar</a>
+            </div>
+          </div>
+          ${del}
+        </div>`;
+    }).join('');
+  }
+
+  function openAnnouncementModal() { if (!isAdminLoggedIn) return alert('Please login as admin first'); document.getElementById('announcement-modal').classList.add('active'); }
+  function closeAnnouncementModal() { document.getElementById('announcement-modal').classList.remove('active'); ['announcement-date','announcement-title','announcement-message'].forEach(id=>document.getElementById(id).value=''); }
+  function saveAnnouncement(e) {
+    e.preventDefault();
+    const a = { id: Date.now(), date: document.getElementById('announcement-date').value, title: document.getElementById('announcement-title').value, message: document.getElementById('announcement-message').value };
+    announcements.unshift(a);
+    storage.save(STORE_KEYS.announcements, announcements);
+    renderAnnouncements();
+    closeAnnouncementModal();
+  }
+  function deleteAnnouncement(id) {
+    if (!isAdminLoggedIn) return;
+    const idx = announcements.findIndex(x=>x.id===id);
+    if (idx>-1) { announcements.splice(idx,1); storage.save(STORE_KEYS.announcements, announcements); renderAnnouncements(); }
+  }
+  function renderAnnouncements() {
+    const container = document.getElementById('announcements-list');
+    container.innerHTML = announcements.map(a=>{
+      const del = isAdminLoggedIn ? `<button onclick="deleteAnnouncement(${a.id})" style="background: var(--medium-gray); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-top: 1rem;">Delete</button>` : '';
+      return `<div class="announcement-card"><div class="announcement-date">${a.date}</div><h3>${a.title}</h3><p>${a.message}</p>${del}</div>`;
+    }).join('');
+  }
+
+  // --- Video helpers & filtering ---
+  const AGE_LABELS = { elementary:'Elementary', middle:'Middle School', high:'High School', all:'All Ages' };
+  let currentFilter = 'all';
+  let searchQuery = '';
+  let videoSort = 'default';
+
+  function getAgeBadge(age) {
+    const cls = age==='elementary'?'age-elementary':age==='middle'?'age-middle':age==='high'?'age-high':'age-all';
+    return `<span class="age-badge ${cls}">${AGE_LABELS[age] || 'All Ages'}</span>`;
+  }
+  function getYouTubeId(url) {
+    const reg = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]{11}).*/;
+    const m = url.match(reg); return (m && m[1]) ? m[1] : null;
+  }
+  function getYouTubePlaylistId(url) { try { const u = new URL(url, window.location.href); return u.searchParams.get('list'); } catch { return null; } }
+  function getTikTokId(url) { const m = url.match(/\/video\/(\d+)/); return m ? m[1] : null; }
+
+  function getThumbnailHTML(v) {
+    if (v.youtubeId) {
+      return `<img loading="lazy" src="https://img.youtube.com/vi/${v.youtubeId}/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg';" alt="${v.title} thumbnail">`;
+    }
+    if (v.youtubePlaylistId) {
+      return `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:1rem;text-align:center;"><div class="play-icon">▶</div><div style="font-weight:700;margin-top:0.3rem;">YouTube Playlist</div></div>`;
+    }
+    if (v.tiktokId) {
+      return `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:1rem;text-align:center;"><div class="play-icon">▶</div><div style="font-weight:700;margin-top:0.3rem;">TikTok</div></div>`;
+    }
+    return '<div class="play-icon">▶</div>';
+  }
+
+  function openSource(v) {
+    let url = v.sourceUrl || v.url || (v.youtubeId ? `https://youtu.be/${v.youtubeId}` : (v.youtubePlaylistId ? `https://www.youtube.com/playlist?list=${v.youtubePlaylistId}` : ''));
+    if (url) window.open(url, '_blank', 'noopener');
+  }
+
+  function playVideo(v) {
+    document.getElementById('video-modal-title').textContent = v.title || 'Video';
+    const player = document.getElementById('video-modal-player');
+    if (v.youtubeId) {
+      player.innerHTML = `<iframe loading="lazy" width="100%" height="500" src="https://www.youtube.com/embed/${v.youtubeId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    } else if (v.youtubePlaylistId) {
+      player.innerHTML = `<iframe loading="lazy" width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=${v.youtubePlaylistId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    } else if (v.tiktokId) {
+      player.innerHTML = `<iframe loading="lazy" width="100%" height="600" src="https://www.tiktok.com/embed/v2/${v.tiktokId}" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    } else if (v.url) {
+      player.innerHTML = `<video width="100%" height="500" controls><source src="${v.url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+    } else {
+      player.innerHTML = `<p style="padding:1rem;">Unable to load this video.</p>`;
+    }
+    // Deep link (?v=ID)
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('v', String(v.id));
+      window.history.replaceState({}, '', url);
+    } catch {}
+    document.getElementById('video-modal').classList.add('active');
+  }
+  function closeVideoModal() {
+    document.getElementById('video-modal').classList.remove('active');
+    document.getElementById('video-modal-player').innerHTML = '';
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('v');
+      window.history.replaceState({}, '', url);
+    } catch {}
+  }
+  window.addEventListener('keydown', (e)=>{ if (e.key==='Escape') { const m=document.querySelector('.modal.active'); if (m) m.classList.remove('active'); }});
+
+  function copyVideoLink(id) {
+    const link = (() => {
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('v', String(id));
+        return url.toString();
+      } catch {
+        return `?v=${encodeURIComponent(id)}`;
+      }
+    })();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link).then(()=>showToast('Link copied!'));
+    } else {
+      const t = document.createElement('textarea'); t.value = link; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); showToast('Link copied!');
+    }
+  }
+
+  function isFavorite(id) { return favorites.includes(String(id)); }
+  function toggleFavorite(id) {
+    id = String(id);
+    const i = favorites.indexOf(id);
+    if (i>-1) { favorites.splice(i,1); showToast('Removed from favorites'); }
+    else { favorites.push(id); showToast('Added to favorites'); }
+    storage.save(STORE_KEYS.favorites, favorites);
+    renderVideos();
+  }
+
+  function findVideoById(id) {
+    id = String(id);
+    const c = curatedVideos.find(v=>String(v.id)===id);
+    if (c) return { video: c, source: 'curated' };
+    const d = customVideos.find(v=>String(v.id)===id);
+    if (d) return { video: d, source: 'custom' };
+    return { video: null, source: null };
+  }
+  function toggleFeatured(id) {
+    if (!isAdminLoggedIn) return;
+    const { video, source } = findVideoById(id);
+    if (!video) return;
+    video.isFeatured = !video.isFeatured;
+
+    if (source === 'custom') {
+      storage.save(STORE_KEYS.customVideos, customVideos);
+    } else if (source === 'curated') {
+      featuredOverrides[String(video.id)] = !!video.isFeatured;
+      storage.save(STORE_KEYS.featuredOverrides, featuredOverrides);
+    }
+    renderVideos();
+  }
+
+  function getAllVideos() { return [...curatedVideos, ...customVideos]; }
+
+  function matchesSearch(v) {
+    if (!searchQuery) return true;
+    const t = (v.title || '') + ' ' + (v.subtitle || '') + ' ' + (v.description || '') + ' ' + (v.whatsGood || '') + ' ' + (v.whatToWatch || '') + ' ' + ((v.tags || []).join(' '));
+    return t.toLowerCase().includes(searchQuery.toLowerCase());
+  }
+  function applySort(list) {
+    if (videoSort === 'az') return [...list].sort((a,b)=> (a.title||'').localeCompare(b.title||''));
+    return list;
+  }
+  function shouldHideFeatured() {
+    return (searchQuery && searchQuery.trim().length>0) || currentFilter === 'favorites';
+    // When searching or showing favorites, hide Featured row to avoid duplicates.
+  }
+
+  function createVideoCard(v) {
+    const favActive = isFavorite(v.id) ? 'active' : '';
+    const safeObj = JSON.stringify(v).replace(/'/g,"&apos;");
+    const featureBtn = isAdminLoggedIn ? `<button class="feature-btn" onclick="toggleFeatured('${v.id}')">${v.isFeatured ? '⭐ Unfeature' : '⭐ Feature'}</button>` : '';
+    const delBtn = (!v.isProtected && isAdminLoggedIn) ? `<button class="delete-btn admin-active" onclick="deleteVideo('${v.id}')">Delete</button>` : '';
+    return `
+      <div class="video-card">
+        ${v.isFeatured ? '<div class="featured-label">FEATURED</div>' : ''}
+        <div class="video-thumbnail" onclick='playVideo(${safeObj})'>
+          ${getThumbnailHTML(v)}
         </div>
-    </footer>
+        <div class="video-info">
+          ${v.ageGroup ? getAgeBadge(v.ageGroup) : ''}
+          <h4>${v.title}</h4>
+          ${v.subtitle ? `<p style="font-size:0.9rem;color:var(--medium-gray);margin-bottom:0.5rem;">${v.subtitle}</p>` : ''}
+          ${v.description ? `<p class="video-description">${v.description}</p>` : ''}
+          ${v.whatsGood ? `<div class="video-highlights"><h5>Why watch:</h5><p>${v.whatsGood}</p></div>` : ''}
+          ${v.whatToWatch ? `<div class="video-highlights"><h5>What to watch for:</h5><p>${v.whatToWatch}</p></div>` : ''}
+          <div class="video-actions">
+            <button class="watch-btn" onclick='playVideo(${safeObj})'>Watch Now</button>
+            <button class="ghost-btn" onclick='openSource(${safeObj})'>Open Source</button>
+            <button class="ghost-btn fav-btn ${favActive}" onclick="toggleFavorite('${v.id}')">${isFavorite(v.id) ? '♥ Favorite' : '♡ Favorite'}</button>
+            <button class="ghost-btn" onclick="copyVideoLink('${v.id}')">Copy Link</button>
+            ${featureBtn}
+            ${delBtn}
+          </div>
+        </div>
+      </div>`;
+  }
 
-    <script>
-        const ADMIN_PASSWORD = 'bluejays2025';
-        let isAdminLoggedIn = false;
-        
-        const events = [];
-        const customVideos = [];
-        const announcements = [
-            {
-                id: 1,
-                date: 'October 2025',
-                title: '🎉 K-12 Girls Wrestling Program Launches!',
-                message: 'This year marks the official start of the MERRILL GIRLS K-12 WRESTLING PROGRAM! We\'re extending our winning tradition to include all female wrestlers from kindergarten through high school. Women\'s wrestling is the fastest growing sport in the USA, and we\'re building one of the best programs in Wisconsin.'
-            }
-        ];
+  // --- Render logic ---
+  function getFeaturedList() {
+    // Apply admin overrides to curated (if present)
+    curatedVideos.forEach(v=>{
+      const ov = featuredOverrides[String(v.id)];
+      if (typeof ov === 'boolean') v.isFeatured = ov;
+    });
+    const all = getAllVideos().filter(v=>v.isFeatured);
+    // keep curated order then custom; limit 4
+    const curatedFirst = all.filter(v=>curatedVideos.includes(v)).concat(all.filter(v=>customVideos.includes(v)));
+    return curatedFirst.slice(0,4);
+  }
 
-        const featuredVideos = [
-            {
-                id: 'featured1',
-                youtubeId: 'DK_6Y29nr38',
-                title: 'Mikayla Perkins vs Anna Buurma',
-                subtitle: '2025 16U Girls Folkstyle Nationals',
-                description: 'A high-level, action-packed championship match with back-and-forth momentum, perfect for illustrating both technique and grit.',
-                whatToWatch: 'Perkins uses fast setups, tough positioning, and demonstrates how to turn defense into points, leading to an explosive pin late in the match.',
-                whatsGood: 'Features two elite 16U competitors with intense scrambles, technical hand fighting, and big moments on the mat.',
-                isFeatured: true
-            },
-            {
-                id: 'featured2',
-                youtubeId: 'mBXb_WJ63Y8',
-                title: 'Caylee Preston – Burnt Mountain Pin',
-                subtitle: 'Girls Folkstyle Wrestling',
-                description: 'Fast-paced folkstyle match that highlights aggressive wrestling and well-executed finishes.',
-                whatToWatch: 'Focus on Preston\'s transitions from takedown to pin and the smart use of hip control for sealing the fall.',
-                whatsGood: 'Shows off powerful mat returns and impressive pinning skills from Preston, keeping the tempo high from start to finish.',
-                isFeatured: true
-            },
-            {
-                id: 'featured3',
-                youtubeId: 'SiLSbOJIDQA',
-                title: 'First Ever PIAA Girls High School State Wrestling Finals',
-                subtitle: 'Historic Pennsylvania State Championship',
-                description: 'A milestone event for girls\' wrestling in Pennsylvania, excellent for motivating new wrestlers and showing the level of competition.',
-                whatToWatch: 'Relentless hand fighting, composed scrambling under pressure, strategic mat returns, and a determined pace from both athletes.',
-                whatsGood: 'Historic state finals with some of the most intense action and technical wrestling seen yet in girls\' high school folkstyle.',
-                isFeatured: true
-            },
-            {
-                id: 'featured4',
-                youtubeId: 'HAhWpV6wPpM',
-                title: 'Girls Wrestling – Very Aggressive Moves',
-                subtitle: 'Highlight Compilation',
-                description: 'Inspiring, action-packed highlight reel suitable as a team motivator or to break down specific aggressive techniques.',
-                whatToWatch: 'Multiple examples of quick takedowns, creative reversals, and powerful finishes in a highlight format.',
-                whatsGood: 'Compiles high-intensity moments and dramatic techniques from various girls\' matches, emphasizing hustle and explosiveness.',
-                isFeatured: true
-            }
-        ];
+  function renderFeaturedVideos() {
+    const wrap = document.getElementById('featured-wrapper');
+    if (shouldHideFeatured()) { wrap.style.display='none'; return; }
+    wrap.style.display='';
+    const container = document.getElementById('featured-videos');
+    const vids = getFeaturedList();
+    container.innerHTML = vids.length ? vids.map(createVideoCard).join('') :
+      '<p style="color: var(--medium-gray);">No featured videos yet.</p>';
+  }
 
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
+  function renderCuratedVideos() {
+    const list = document.getElementById('curated-videos');
+    let vids;
+    if (currentFilter === 'favorites' || shouldHideFeatured()) {
+      // unified results when searching/favorites: show ALL videos (curated + custom)
+      vids = getAllVideos().filter(v => {
+        const byFav = currentFilter !== 'favorites' || isFavorite(v.id);
+        const byAge = currentFilter==='favorites' ? true : (currentFilter==='all' || (v.ageGroup||'all')===currentFilter);
+        return byFav && byAge && matchesSearch(v);
+      });
+    } else {
+      // default curated column: curated, non-featured
+      vids = curatedVideos.filter(v => !v.isFeatured)
+                          .filter(v => currentFilter==='all' || v.ageGroup===currentFilter)
+                          .filter(matchesSearch);
+    }
+    vids = applySort(vids);
+    list.innerHTML = vids.length ? vids.map(createVideoCard).join('') :
+      '<p style="text-align:center;color:var(--medium-gray);padding:2rem;grid-column:1/-1;">No videos match your filters yet.</p>';
+  }
 
-        function openAdminModal() {
-            document.getElementById('admin-modal').classList.add('active');
-        }
+  function renderCustomVideos() {
+    const section = document.getElementById('additional-section');
+    if (shouldHideFeatured()) { section.style.display='none'; return; }
+    section.style.display='';
+    const list = document.getElementById('custom-videos');
+    const vids = customVideos.filter(v => !v.isFeatured)
+                             .filter(v => currentFilter==='all' || (v.ageGroup||'all')===currentFilter)
+                             .filter(matchesSearch);
+    list.innerHTML = vids.length ? applySort(vids).map(createVideoCard).join('') :
+      '<p style="text-align:center;color:var(--medium-gray);padding:2rem;grid-column:1/-1;">No additional videos yet. Admin can add training videos above!</p>';
+  }
 
-        function closeAdminModal() {
-            document.getElementById('admin-modal').classList.remove('active');
-            document.getElementById('admin-password').value = '';
-        }
+  function renderVideos() {
+    renderFeaturedVideos();
+    renderCuratedVideos();
+    renderCustomVideos();
+  }
 
-        function adminLogin(e) {
-            e.preventDefault();
-            const password = document.getElementById('admin-password').value;
-            
-            if (password === ADMIN_PASSWORD) {
-                isAdminLoggedIn = true;
-                updateAdminUI();
-                closeAdminModal();
-                alert('Admin access granted!');
-            } else {
-                alert('Incorrect password');
-            }
-        }
+  // --- Add/Delete custom video ---
+  function addVideo() {
+    if (!isAdminLoggedIn) return alert('Please login as admin first');
+    const url = document.getElementById('video-url').value.trim();
+    const title = document.getElementById('video-title').value.trim();
+    const ageGroup = document.getElementById('video-age').value;
+    const description = document.getElementById('video-description').value.trim();
+    if (!url || !title) return alert('Please provide both URL and title');
 
-        function updateAdminUI() {
-            const addButtons = document.querySelectorAll('.add-btn');
-            const deleteButtons = document.querySelectorAll('.delete-btn');
-            const videoControls = document.querySelectorAll('.video-controls');
-            
-            if (isAdminLoggedIn) {
-                addButtons.forEach(btn => btn.classList.add('admin-active'));
-                deleteButtons.forEach(btn => btn.classList.add('admin-active'));
-                videoControls.forEach(ctrl => ctrl.classList.add('admin-active'));
-            } else {
-                addButtons.forEach(btn => btn.classList.remove('admin-active'));
-                deleteButtons.forEach(btn => btn.classList.remove('admin-active'));
-                videoControls.forEach(ctrl => ctrl.classList.remove('admin-active'));
-            }
-        }
+    let youtubeId=null, youtubePlaylistId=null, tiktokId=null;
+    try {
+      if (url.includes('playlist') || url.includes('list=')) { youtubePlaylistId = getYouTubePlaylistId(url); }
+      else if (url.includes('youtu')) { youtubeId = getYouTubeId(url); }
+      else if (url.includes('tiktok.com')) { tiktokId = getTikTokId(url); }
+    } catch {}
 
-        function openEventModal() {
-            if (!isAdminLoggedIn) {
-                alert('Please login as admin first');
-                return;
-            }
-            document.getElementById('event-modal').classList.add('active');
-        }
+    const video = {
+      id: 'c'+Date.now(),
+      url, title, description,
+      youtubeId, youtubePlaylistId, tiktokId,
+      ageGroup,
+      isFeatured: false,
+      isProtected: false,
+      sourceUrl: url
+    };
+    customVideos.push(video);
+    storage.save(STORE_KEYS.customVideos, customVideos);
 
-        function closeEventModal() {
-            document.getElementById('event-modal').classList.remove('active');
-            document.getElementById('event-date').value = '';
-            document.getElementById('event-name').value = '';
-            document.getElementById('event-location').value = '';
-            document.getElementById('event-details').value = '';
-        }
+    document.getElementById('video-url').value = '';
+    document.getElementById('video-title').value = '';
+    document.getElementById('video-description').value = '';
+    document.getElementById('video-age').value = 'all';
 
-        function saveEvent(e) {
-            e.preventDefault();
-            const event = {
-                id: Date.now(),
-                date: document.getElementById('event-date').value,
-                name: document.getElementById('event-name').value,
-                location: document.getElementById('event-location').value,
-                details: document.getElementById('event-details').value
-            };
-            events.push(event);
-            events.sort((a, b) => new Date(a.date) - new Date(b.date));
-            renderEvents();
-            closeEventModal();
-        }
+    renderVideos();
+    showToast('Video added!');
+  }
 
-        function deleteEvent(id) {
-            if (!isAdminLoggedIn) return;
-            const index = events.findIndex(e => e.id === id);
-            if (index > -1) {
-                events.splice(index, 1);
-                renderEvents();
-            }
-        }
+  function deleteVideo(id) {
+    if (!isAdminLoggedIn) return;
+    const idx = customVideos.findIndex(v=>String(v.id)===String(id));
+    if (idx>-1) {
+      customVideos.splice(idx,1);
+      storage.save(STORE_KEYS.customVideos, customVideos);
+      renderVideos();
+    }
+  }
 
-        function renderEvents() {
-            const container = document.getElementById('events-list');
-            if (events.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--medium-gray); padding: 2rem;">No events scheduled yet. Contact Coach Arnie for upcoming events!</p>';
-                return;
-            }
-            container.innerHTML = events.map(event => {
-                const date = new Date(event.date);
-                const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                const deleteBtn = isAdminLoggedIn ? `<button onclick="deleteEvent(${event.id})" class="delete-btn admin-active" style="padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; background: var(--medium-gray); color: white;">Delete</button>` : '';
-                return `
-                    <div class="event-item">
-                        <div class="event-date">${formattedDate}</div>
-                        <div class="event-details" style="flex: 1;">
-                            <h4>${event.name}</h4>
-                            <p style="color: var(--medium-gray); margin-bottom: 0.3rem;">${event.location}</p>
-                            ${event.details ? `<p style="font-size: 0.9rem;">${event.details}</p>` : ''}
-                        </div>
-                        ${deleteBtn}
-                    </div>
-                `;
-            }).join('');
-        }
+  // --- Filters/search/sort UI ---
+  function setFilter(val) {
+    currentFilter = val;
+    document.querySelectorAll('#video-filter .filter-pill').forEach(btn=>{
+      const active = btn.getAttribute('data-filter')===val;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+    renderVideos();
+  }
+  function initFilters() {
+    document.querySelectorAll('#video-filter .filter-pill').forEach(btn=>{
+      btn.addEventListener('click', ()=> setFilter(btn.dataset.filter));
+    });
+    document.getElementById('video-search').addEventListener('input', (e)=> {
+      searchQuery = e.target.value || '';
+      renderVideos();
+    });
+    document.getElementById('video-sort').addEventListener('change', (e)=> {
+      videoSort = e.target.value;
+      renderVideos();
+    });
+  }
 
-        function openAnnouncementModal() {
-            if (!isAdminLoggedIn) {
-                alert('Please login as admin first');
-                return;
-            }
-            document.getElementById('announcement-modal').classList.add('active');
-        }
+  // --- Initialize ---
+  function init() {
+    // load persisted data
+    events = storage.load(STORE_KEYS.events, []) || [];
+    customVideos = storage.load(STORE_KEYS.customVideos, []) || [];
+    favorites = storage.load(STORE_KEYS.favorites, []) || [];
+    featuredOverrides = storage.load(STORE_KEYS.featuredOverrides, {}) || {};
+    announcements = storage.load(STORE_KEYS.announcements, null) || defaultAnnouncements;
 
-        function closeAnnouncementModal() {
-            document.getElementById('announcement-modal').classList.remove('active');
-            document.getElementById('announcement-date').value = '';
-            document.getElementById('announcement-title').value = '';
-            document.getElementById('announcement-message').value = '';
-        }
+    renderEvents();
+    renderAnnouncements();
+    initFilters();
+    setFilter('all');
+    updateAdminUI(); // will also call renderVideos via render path
+    renderVideos();
 
-        function saveAnnouncement(e) {
-            e.preventDefault();
-            const announcement = {
-                id: Date.now(),
-                date: document.getElementById('announcement-date').value,
-                title: document.getElementById('announcement-title').value,
-                message: document.getElementById('announcement-message').value
-            };
-            announcements.unshift(announcement);
-            renderAnnouncements();
-            closeAnnouncementModal();
-        }
+    // Deep link ?v=<id>
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const vid = params.get('v');
+      if (vid) {
+        const found = findVideoById(vid).video;
+        if (found) playVideo(found);
+      }
+    } catch {}
+  }
+  init();
 
-        function deleteAnnouncement(id) {
-            if (!isAdminLoggedIn) return;
-            const index = announcements.findIndex(a => a.id === id);
-            if (index > -1) {
-                announcements.splice(index, 1);
-                renderAnnouncements();
-            }
-        }
-
-        function renderAnnouncements() {
-            const container = document.getElementById('announcements-list');
-            container.innerHTML = announcements.map(announcement => {
-                const deleteBtn = isAdminLoggedIn ? `<button onclick="deleteAnnouncement(${announcement.id})" style="background: var(--medium-gray); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-top: 1rem;">Delete</button>` : '';
-                return `
-                    <div class="announcement-card">
-                        <div class="announcement-date">${announcement.date}</div>
-                        <h3>${announcement.title}</h3>
-                        <p>${announcement.message}</p>
-                        ${deleteBtn}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function getYouTubeId(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
-        }
-
-        function addVideo() {
-            if (!isAdminLoggedIn) {
-                alert('Please login as admin first');
-                return;
-            }
-            
-            const url = document.getElementById('video-url').value.trim();
-            const title = document.getElementById('video-title').value.trim();
-            const description = document.getElementById('video-description').value.trim();
-            
-            if (!url || !title) {
-                alert('Please provide both URL and title');
-                return;
-            }
-
-            const youtubeId = getYouTubeId(url);
-            
-            const video = {
-                id: Date.now(),
-                url: url,
-                title: title,
-                description: description,
-                youtubeId: youtubeId,
-                isFeatured: false
-            };
-
-            customVideos.push(video);
-            renderCustomVideos();
-            document.getElementById('video-url').value = '';
-            document.getElementById('video-title').value = '';
-            document.getElementById('video-description').value = '';
-        }
-
-        function deleteVideo(id) {
-            if (!isAdminLoggedIn) return;
-            const index = customVideos.findIndex(v => v.id === id);
-            if (index > -1) {
-                customVideos.splice(index, 1);
-                renderCustomVideos();
-            }
-        }
-
-        function playVideo(video) {
-            document.getElementById('video-modal-title').textContent = video.title;
-            const player = document.getElementById('video-modal-player');
-            
-            if (video.youtubeId) {
-                player.innerHTML = `<iframe width="100%" height="500" src="https://www.youtube.com/embed/${video.youtubeId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            } else {
-                player.innerHTML = `<video width="100%" height="500" controls><source src="${video.url}" type="video/mp4">Your browser does not support the video tag.</video>`;
-            }
-            
-            document.getElementById('video-modal').classList.add('active');
-        }
-
-        function closeVideoModal() {
-            document.getElementById('video-modal').classList.remove('active');
-            document.getElementById('video-modal-player').innerHTML = '';
-        }
-
-        function createVideoCard(video) {
-            const deleteBtn = (!video.isFeatured && isAdminLoggedIn) ? `<button class="delete-btn admin-active" onclick="deleteVideo(${video.id})">Delete</button>` : '';
-            return `
-                <div class="video-card">
-                    ${video.isFeatured ? '<div class="featured-label">FEATURED</div>' : ''}
-                    <div class="video-thumbnail" onclick='playVideo(${JSON.stringify(video).replace(/'/g, "&apos;")})'>
-                        ${video.youtubeId ? 
-                            `<img src="https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg" alt="${video.title}">` :
-                            '<div class="play-icon">▶</div>'
-                        }
-                    </div>
-                    <div class="video-info">
-                        <h4>${video.title}</h4>
-                        ${video.subtitle ? `<p style="font-size: 0.9rem; color: var(--medium-gray); margin-bottom: 0.5rem;">${video.subtitle}</p>` : ''}
-                        ${video.description ? `<p class="video-description">${video.description}</p>` : ''}
-                        ${video.whatsGood ? `
-                            <div class="video-highlights">
-                                <h5>What's Good:</h5>
-                                <p>${video.whatsGood}</p>
-                            </div>
-                        ` : ''}
-                        ${video.whatToWatch ? `
-                            <div class="video-highlights">
-                                <h5>What to Watch For:</h5>
-                                <p>${video.whatToWatch}</p>
-                            </div>
-                        ` : ''}
-                        <div class="video-actions">
-                            <button class="watch-btn" onclick='playVideo(${JSON.stringify(video).replace(/'/g, "&apos;")})'>Watch Now</button>
-                            ${deleteBtn}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderFeaturedVideos() {
-            const container = document.getElementById('featured-videos');
-            container.innerHTML = featuredVideos.map(video => createVideoCard(video)).join('');
-        }
-
-        function renderCustomVideos() {
-            const container = document.getElementById('custom-videos');
-            if (customVideos.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--medium-gray); padding: 2rem; grid-column: 1/-1;">No additional videos yet. Admin can add training videos above!</p>';
-                return;
-            }
-            container.innerHTML = customVideos.map(video => createVideoCard(video)).join('');
-        }
-
-        // Initialize
-        renderEvents();
-        renderAnnouncements();
-        renderFeaturedVideos();
-        renderCustomVideos();
-        updateAdminUI();
-
-        // Close modals when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.classList.remove('active');
-            }
-        }
-    </script>
+  // Close modals when clicking outside
+  window.onclick = function(e) {
+    if (e.target.classList.contains('modal')) {
+      e.target.classList.remove('active');
+      if (e.target.id==='video-modal') document.getElementById('video-modal-player').innerHTML='';
+    }
+  };
+</script>
 </body>
 </html>
