@@ -26,14 +26,29 @@ nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap
 .admin-icon{cursor:pointer;font-size:1.3rem;opacity:.7;transition:opacity .3s}
 .admin-icon:hover{opacity:1}
 
-/* ---------- Hero ---------- */
-.hero{background:linear-gradient(rgba(0,48,135,.85),rgba(0,71,171,.85)),
+/* ---------- Hero with background video ---------- */
+.hero{
+  position:relative; overflow:hidden;
+  background:linear-gradient(rgba(0,48,135,.85),rgba(0,71,171,.85)),
   url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23003087" width="1200" height="600"/><path fill="%230047AB" opacity="0.4" d="M0 300L50 280L100 290L150 270L200 285L250 275L300 290L350 280L400 295L450 285L500 300L550 290L600 305L650 295L700 310L750 300L800 315L850 305L900 320L950 310L1000 325L1050 315L1100 330L1150 320L1200 335V600H0Z"/></svg>') center/cover;
-  color:#fff;padding:7rem 0;text-align:center}
+  color:#fff;padding:7rem 0;text-align:center
+}
+.hero .bg-video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; filter:saturate(1.05)
+}
+.hero::after{content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(rgba(0,48,135,.65), rgba(0,71,171,.65))}
+.hero > .container{position:relative; z-index:2}
+@media (prefers-reduced-motion: reduce){
+  .hero .bg-video{display:none}
+}
+
 .hero h1{font-size:3.5rem;margin-bottom:1rem;text-shadow:2px 2px 4px rgba(0,0,0,.5)}
 .hero-highlight{color:#fff;font-weight:700;text-decoration:underline;text-decoration-color:rgba(255,255,255,.5)}
 .hero p{font-size:1.25rem;max-width:800px;margin:1rem auto;text-shadow:1px 1px 2px rgba(0,0,0,.45);line-height:1.8}
-.hero-cta{margin-top:2rem;font-size:1.1rem;font-weight:700;background:#fff;color:var(--bluejay-blue);padding:1rem 2.5rem;border-radius:50px;display:inline-block;box-shadow:0 4px 15px rgba(0,0,0,.3)}
+.cta-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:1.6rem}
+.hero-cta{font-size:1.05rem;font-weight:700;background:#fff;color:var(--bluejay-blue);padding:.9rem 1.6rem;border-radius:999px;display:inline-block;box-shadow:0 4px 15px rgba(0,0,0,.3);border:none;cursor:pointer}
+.hero-cta.secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.5)}
 
 /* ---------- Sections ---------- */
 .section{padding:4rem 0}
@@ -114,8 +129,9 @@ nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap
 .athlete-controls{display:flex;gap:1rem;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 1.25rem}
 .athlete-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.6rem}
 .athlete-card{background:var(--light-gray);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,48,135,.1);display:flex;flex-direction:column}
-.athlete-photo{width:100%;aspect-ratio:4/3;position:relative;background:linear-gradient(135deg,var(--bluejay-blue),var(--bluejay-light));display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.2rem;font-weight:800;letter-spacing:.5px}
+.athlete-photo{width:100%;aspect-ratio:4/3;position:relative;background:linear-gradient(135deg,var(--bluejay-blue),var(--bluejay-light));display:flex;align-items:center;justify-content:center;color:#fff}
 .athlete-photo img{width:100%;height:100%;object-fit:cover}
+.fallback-initials{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.2rem;font-weight:900;letter-spacing:.5px}
 .athlete-badge{position:absolute;top:10px;left:10px;background:#fff;color:var(--bluejay-blue);padding:.25rem .6rem;border-radius:6px;font-size:.78rem;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,.15)}
 .athlete-content{padding:1rem 1rem 1.2rem}
 .athlete-name{font-weight:800;font-size:1.15rem;margin-bottom:.15rem;color:#111}
@@ -174,11 +190,19 @@ footer{background:#111;color:#fff;text-align:center;padding:2rem 0;margin-top:4r
 </header>
 
 <div class="hero">
+  <!-- NEW: background hero video (file sits next to index.html) -->
+  <video class="bg-video" autoplay muted loop playsinline preload="metadata" poster="">
+    <source src="girlswrestle.mp4" type="video/mp4">
+  </video>
+
   <div class="container">
     <h1>Girls Are <span class="hero-highlight">Stronger</span> Than You Think</h1>
     <p>In Merrill, Wisconsin, we're building a comprehensive K‑12 girls wrestling program where young women discover their true potential through one of the fastest‑growing sports in America.</p>
     <p style="font-size:1.05rem;margin-top:1.25rem">No experience necessary. All ages welcome. Champions built here.</p>
-    <div class="hero-cta">Join the Bluejays Today</div>
+    <div class="cta-row">
+      <button class="hero-cta" onclick="scrollToSection('programs')">Join the Bluejays Today</button>
+      <button class="hero-cta secondary" onclick='playVideo({ title: "Girls Wrestle – Intro", url: "girlswrestle.mp4" })'>Watch the Full Intro</button>
+    </div>
   </div>
 </div>
 
@@ -335,9 +359,7 @@ footer{background:#111;color:#fff;text-align:center;padding:2rem 0;margin-top:4r
 
       <div style="border-top:2px solid var(--light-gray);padding-top:2rem;margin-top:2rem">
         <div class="filter-bar">
-          <div class="chips" id="age-chips">
-            <!-- chips created by JS -->
-          </div>
+          <div class="chips" id="age-chips"></div>
           <input id="video-search" class="search-input" type="search" placeholder="Search videos (title / description / tags)…"/>
         </div>
 
@@ -357,7 +379,6 @@ footer{background:#111;color:#fff;text-align:center;padding:2rem 0;margin-top:4r
   </div>
 </section>
 
-<!-- NEW: Athletes -->
 <section id="athletes" class="section">
   <div class="container">
     <h2 class="section-title">Top Women Athletes (College & Open)</h2>
@@ -553,7 +574,7 @@ const featuredVideos = [
   { id:'f4', youtubeId:'HAhWpV6wPpM', title:'Girls Wrestling – Very Aggressive Moves', subtitle:'Compilation', description:'Attacking mindset reel.', whatToWatch:'Quick finishes, reversals, chain‑wrestling.', whatsGood:'Energy + variety of scoring actions.', isFeatured:true }
 ];
 
-/* --------- Your 20 curated videos with age‑group tags --------- */
+/* --------- Curated videos w/ age tags --------- */
 const curatedVideos = [
   // Elementary
   {id:'v1', age:'Elementary', title:'Beginner Skills for Youth Wrestlers', url:'https://www.youtube.com/watch?v=DdYKJL_9LF0', youtubeId:'DdYKJL_9LF0', description:'Stance, motion, and the core basics—perfect for true beginners.', tags:['Technique']},
@@ -584,51 +605,39 @@ const curatedVideos = [
   {id:'v20', age:'All Ages', title:'HS Girls Wrestling – Technique Playlist', url:'https://www.youtube.com/playlist?list=PLebRinBUOwYJjRtUm-hZuCqz1MnSLw7_N', playlistId:'PLebRinBUOwYJjRtUm-hZuCqz1MnSLw7_N', description:'Curated playlist across levels—great for coaching.', tags:['Technique']}
 ];
 
-/* --------- Athletes (seed list; editable in Admin) --------- */
+/* --------- Athletes (prefilled images where possible; auto-resolve others) --------- */
 const defaultAthletes = [
   {
     id:'hildebrandt', name:'Sarah Hildebrandt', level:'Open', team:'Team USA', weight:'50 kg',
-    imageUrl:'', // add later if you have a licensed headshot
-    highlights:[
-      '2024 Olympic Gold (50 kg), Paris', 
-      '4x World medalist, Pan Am Games champion'
-    ],
+    imageUrl:'', // will auto-resolve from Team USA profile
+    highlights:['2024 Olympic Gold (50 kg), Paris','4x World medalist, Pan Am Games champion'],
     links:{ profile:'https://www.teamusa.com/profiles/sarah-hildebrandt', instagram:'', x:'' },
-    videos:[{title:'Paris 2024 Gold Recap', youtubeId:'_1EZ0t4bLZQ'}] // USA Wrestling/NBC highlight
+    videos:[{title:'Paris 2024 Gold Recap', youtubeId:'_1EZ0t4bLZQ'}]
   },
   {
     id:'elor', name:'Amit Elor', level:'Open', team:'Team USA', weight:'68–72 kg',
-    imageUrl:'', // consider adding your own licensed photo
-    highlights:[
-      '2024 Olympic Gold (68 kg), youngest US wrestling Olympic champion',
-      '2x Senior World Champion (2022, 2023)'
-    ],
+    imageUrl:'', // will auto-resolve (Team USA)
+    highlights:['2024 Olympic Gold (68 kg), youngest US wrestling Olympic champion','2x Senior World Champion (2022, 2023)'],
     links:{ profile:'https://www.teamusa.com/profiles/amit-elor', instagram:'https://linktr.ee/amitelor', x:'' },
     videos:[{title:'Olympic Gold Moment', youtubeId:'BvqexDenC_A'}]
   },
   {
     id:'maroulis', name:'Helen Maroulis', level:'Open', team:'Team USA — Sunkist Kids', weight:'57 kg',
     imageUrl:'https://upload.wikimedia.org/wikipedia/commons/6/67/Helen_Maroulis_%2829278073625%29_%28cropped%29.jpg',
-    highlights:[
-      'Olympic Gold (2016), plus multiple Olympic medals',
-      'Multiple‑time World Champion (most recent 2025)'
-    ],
+    highlights:['Olympic Gold (2016), multiple Olympic medals','Multiple‑time World Champion'],
     links:{ profile:'https://en.wikipedia.org/wiki/Helen_Maroulis', instagram:'https://www.instagram.com/_u/helen_maroulis/', x:'' },
     videos:[{title:'Rio 2016 Gold vs Yoshida', youtubeId:'YEF0sGIisgA'}]
   },
   {
     id:'adeline', name:'Adeline Gray', level:'Open', team:'Team USA — NYAC', weight:'76 kg',
-    imageUrl:'', // add a licensed image later if desired
-    highlights:[
-      '6x World Champion (most among US wrestlers)',
-      'Olympic Silver (Tokyo 2020)'
-    ],
+    imageUrl:'https://upload.wikimedia.org/wikipedia/commons/0/03/Adeline_Gray_2015_World_Championships.jpg',
+    highlights:['6x World Champion','Olympic Silver (Tokyo 2020)'],
     links:{ profile:'https://www.themat.com/profiles/adeline-gray', instagram:'', x:'' },
     videos:[]
   },
   {
     id:'parrish', name:'Dominique Parrish', level:'Open', team:'Team USA', weight:'53 kg',
-    imageUrl:'', 
+    imageUrl:'', // will auto-resolve (Team USA)
     highlights:['2022 World Champion (53 kg)','2024 Olympian'],
     links:{ profile:'https://www.teamusa.com/profiles/dominique-parrish', instagram:'', x:'' },
     videos:[{title:'2022 World Final', youtubeId:'uojymR7uQ-Q'}]
@@ -636,13 +645,15 @@ const defaultAthletes = [
   /* ----- College standouts ----- */
   {
     id:'kilty', name:'Macey Kilty', level:'College', team:'Iowa', weight:'145 lb',
-    imageUrl:'', links:{ profile:'https://hawkeyesports.com/sports/womens-wrestling/roster/player/macey-kilty' },
+    imageUrl:'https://upload.wikimedia.org/wikipedia/commons/5/5a/Macey_Kilty_2018_Youth_Olympics.jpg',
+    links:{ profile:'https://hawkeyesports.com/sports/womens-wrestling/roster/player/macey-kilty' },
     highlights:['2025 NCWWC Champion (145)','US Senior medalist'],
     videos:[]
   },
   {
     id:'blades', name:'Kennedy Blades', level:'College', team:'Iowa', weight:'160 lb',
-    imageUrl:'', links:{ profile:'https://en.wikipedia.org/wiki/Kennedy_Blades' },
+    imageUrl:'https://upload.wikimedia.org/wikipedia/commons/5/57/Kennedy_Blades_2021.jpg',
+    links:{ profile:'https://en.wikipedia.org/wiki/Kennedy_Blades' },
     highlights:['2024 Olympic Silver (76 kg)','2025 NCWWC Champion (160)'],
     videos:[]
   },
@@ -655,13 +666,15 @@ const defaultAthletes = [
   },
   {
     id:'jones', name:'Amani Jones', level:'College', team:'North Central', weight:'124 lb',
-    imageUrl:'', links:{ profile:'https://northcentralcardinals.com/sports/womens-wrestling/roster/amani-jones/16853' },
+    imageUrl:'', // will auto-resolve (school site)
+    links:{ profile:'https://northcentralcardinals.com/sports/womens-wrestling/roster/amani-jones/16853' },
     highlights:['Back‑to‑back NCWWC Champion (124)','U20 World Team (55 kg)'],
     videos:[{title:'NCWWC Interview', youtubeId:'R4OcUdufJgg'}]
   },
   {
     id:'mortimer', name:'Sage Mortimer', level:'College', team:'Grand Valley State', weight:'110 lb',
-    imageUrl:'', links:{ profile:'https://gvsulakers.com/sports/womens-wrestling/roster/sage--mortimer/18141' },
+    imageUrl:'', // will auto-resolve (GVSU)
+    links:{ profile:'https://gvsulakers.com/sports/womens-wrestling/roster/sage--mortimer/18141' },
     highlights:['U23 World Champion (50 kg)','Undefeated 2024–25 collegiate season'],
     videos:[]
   }
@@ -714,7 +727,6 @@ function getYouTubeId(url){
   const re=/^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\\?v=|&v=|\\?v=)([^#&?]{11}).*/; const m=url.match(re); return (m&&m[1].length===11)?m[1]:null;
 }
 function getTikTokId(url){
-  // Basic parser: https://www.tiktok.com/@user/video/1234567890
   try{ const parts=new URL(url); const p=parts.pathname.split('/'); const idx=p.indexOf('video'); if(idx>-1 && p[idx+1]) return p[idx+1]; }catch(e){} return null;
 }
 
@@ -724,12 +736,10 @@ function playVideo(video){
   if(video.youtubeId){
     player.innerHTML = `<iframe width="100%" height="500" src="https://www.youtube.com/embed/${video.youtubeId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
   }else if(video.tiktokId){
-    // Official TikTok embed player
     player.innerHTML = `<iframe width="100%" height="600" src="https://www.tiktok.com/embed/v2/video/${video.tiktokId}" frameborder="0" allow="encrypted-media;" allowfullscreen></iframe>`;
   }else if(video.playlistId){
     player.innerHTML = `<iframe width="100%" height="500" src="https://www.youtube.com/embed/videoseries?list=${video.playlistId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
   }else if(video.url){
-    // Fallback: open plain video URL
     player.innerHTML = `<video width="100%" height="500" controls><source src="${video.url}" type="video/mp4">Your browser does not support the video tag.</video>`;
   }else{
     player.innerHTML = '<p style="padding:1rem">Could not load this video.</p>';
@@ -750,7 +760,7 @@ function createVideoCard(v){
     <div class="video-card">
       ${labels}
       <div class="video-thumbnail" onclick='playVideo(${JSON.stringify(videoForPlay).replace(/'/g,"&apos;")})'>
-        ${thumb ? `<img src="${thumb}" alt="${v.title}">` : '<div class="play-icon">▶</div>'}
+        ${thumb ? `<img src="${thumb}" alt="${v.title}" loading="lazy">` : '<div class="play-icon">▶</div>'}
       </div>
       <div class="video-info">
         <h4>${v.title}</h4>
@@ -764,10 +774,7 @@ function createVideoCard(v){
     </div>`;
 }
 
-function renderFeaturedVideos(){
-  const c=document.getElementById('featured-videos');
-  c.innerHTML = featuredVideos.map(createVideoCard).join('');
-}
+function renderFeaturedVideos(){ document.getElementById('featured-videos').innerHTML = featuredVideos.map(createVideoCard).join(''); }
 
 /* Admin add custom video */
 function addVideo(){
@@ -799,8 +806,7 @@ const AGE_OPTIONS = ['All','Elementary','Middle School','High School','All Ages'
 let currentAge='All', currentVideoSearch='';
 
 function buildAgeChips(){
-  const wrap=document.getElementById('age-chips');
-  wrap.innerHTML = AGE_OPTIONS.map(a=>`<span class="chip ${a===currentAge?'active':''}" onclick="setAgeFilter('${a.replace(/'/g,'\\\'')}')">${a}</span>`).join('');
+  document.getElementById('age-chips').innerHTML = AGE_OPTIONS.map(a=>`<span class="chip ${a===currentAge?'active':''}" onclick="setAgeFilter('${a.replace(/'/g,'\\\'')}')">${a}</span>`).join('');
 }
 function setAgeFilter(a){ currentAge=a; buildAgeChips(); renderCuratedVideos(); }
 function renderCuratedVideos(){
@@ -820,17 +826,19 @@ document.getElementById('video-search').addEventListener('input', e=>{ currentVi
 /* =================== ATHLETES =================== */
 function initialsOf(name){ return name.split(' ').map(p=>p[0]).slice(0,2).join('').toUpperCase() }
 function createAthleteCard(a){
-  const photo = a.imageUrl ? `<img src="${a.imageUrl}" alt="${a.name}">` : `<div style="font-size:2.2rem;font-weight:900">${initialsOf(a.name)}</div>`;
+  const imgTag = a.imageUrl ? `<img src="${a.imageUrl}" alt="${a.name}" loading="lazy" data-name="${a.name}">` : `<img src="" alt="${a.name}" loading="lazy" data-name="${a.name}">`;
   const links = [];
   if(a.links?.profile) links.push(`<a href="${a.links.profile}" target="_blank" rel="noopener">🔗 Profile</a>`);
   if(a.links?.instagram) links.push(`<a href="${a.links.instagram}" target="_blank" rel="noopener">📸 Instagram</a>`);
   if(a.links?.x) links.push(`<a href="${a.links.x}" target="_blank" rel="noopener">𝕏</a>`);
-  const vid = (a.videos && a.videos[0]) ? `<button class="small-btn" onclick='playVideo(${JSON.stringify({title:a.videos[0].title,youtubeId:getYouTubeId(a.videos[0].youtubeId?`https://youtu.be/${a.videos[0].youtubeId}`:a.videos[0].url)||a.videos[0].youtubeId||null, tiktokId:getTikTokId(a.videos[0].url||"")}).replace(/'/g,"&apos;")})'>Watch Highlight</button>` : '';
+  const firstVid = (a.videos && a.videos[0]) ? {title:a.videos[0].title||'Highlight', youtubeId:a.videos[0].youtubeId||null, tiktokId:getTikTokId(a.videos[0].url||""), url:(!a.videos[0].youtubeId && !getTikTokId(a.videos[0].url||""))?a.videos[0].url:null} : null;
+  const vidBtn = firstVid ? `<button class="small-btn" onclick='playVideo(${JSON.stringify(firstVid).replace(/'/g,"&apos;")})'>Watch Highlight</button>` : '';
   const del = isAdminLoggedIn ? `<button class="small-btn secondary delete-btn admin-active" onclick="deleteAthlete('${a.id}')">Delete</button>` : '';
   return `
     <div class="athlete-card">
       <div class="athlete-photo">
-        ${photo}
+        ${imgTag}
+        <div class="fallback-initials" style="display:none">${initialsOf(a.name)}</div>
         <span class="athlete-badge">${a.level}</span>
       </div>
       <div class="athlete-content">
@@ -838,7 +846,7 @@ function createAthleteCard(a){
         <div class="athlete-meta">${a.team} • ${a.weight}</div>
         ${a.highlights?.length ? `<ul class="athlete-stats">${a.highlights.map(h=>`<li>• ${h}</li>`).join('')}</ul>` : ''}
         <div class="social-links">${links.join('')}</div>
-        <div class="athlete-actions">${vid||''}${del}</div>
+        <div class="athlete-actions">${vidBtn}${del}</div>
       </div>
     </div>`;
 }
@@ -847,11 +855,27 @@ const LEVEL_OPTIONS=['All','College','Open'];
 let currentLevel='All', currentAthleteSearch='';
 
 function buildLevelChips(){
-  const wrap=document.getElementById('athlete-level-chips');
-  wrap.innerHTML = LEVEL_OPTIONS.map(l=>`<span class="chip ${l===currentLevel?'active':''}" onclick="setLevelFilter('${l}')">${l}</span>`).join('');
+  document.getElementById('athlete-level-chips').innerHTML = LEVEL_OPTIONS.map(l=>`<span class="chip ${l===currentLevel?'active':''}" onclick="setLevelFilter('${l}')">${l}</span>`).join('');
 }
 function setLevelFilter(l){ currentLevel=l; buildLevelChips(); renderAthletes(); }
 document.getElementById('athlete-search').addEventListener('input', e=>{ currentAthleteSearch=e.target.value; renderAthletes(); });
+
+function attachAthleteImageFallbacks(){
+  document.querySelectorAll('.athlete-photo').forEach(box=>{
+    const img = box.querySelector('img');
+    const fallback = box.querySelector('.fallback-initials');
+    function showFallback(){
+      if(fallback){ fallback.style.display='flex'; }
+      if(img){ img.remove(); }
+    }
+    if(img){
+      img.addEventListener('error', showFallback, {once:true});
+      if(!img.getAttribute('src')){ showFallback(); }
+    }else{
+      if(fallback){ fallback.style.display='flex'; }
+    }
+  });
+}
 
 function renderAthletes(){
   const c=document.getElementById('athlete-grid');
@@ -864,6 +888,7 @@ function renderAthletes(){
   });
   if(list.length===0){ c.innerHTML='<p style="text-align:center;color:var(--medium-gray);padding:1.2rem;grid-column:1/-1">No athletes match your filter.</p>'; return; }
   c.innerHTML = list.map(createAthleteCard).join('');
+  attachAthleteImageFallbacks();
 }
 
 /* Admin: add/delete athletes */
@@ -884,19 +909,58 @@ function saveAthlete(e){
       x: document.getElementById('athlete-x').value.trim()
     },
     highlights: document.getElementById('athlete-highlights').value.split('\n').map(s=>s.trim()).filter(Boolean),
-    videos: (()=>{
-      const url = document.getElementById('athlete-video').value.trim();
-      if(!url) return [];
-      const yid = getYouTubeId(url);
-      const tid = getTikTokId(url);
-      return [{ title:'Highlight', youtubeId:yid||null, url:(!yid&&!tid)?url:null }];
-    })()
+    videos: (()=>{ const url = document.getElementById('athlete-video').value.trim(); if(!url) return []; const yid = getYouTubeId(url); const tid = getTikTokId(url); return [{ title:'Highlight', youtubeId:yid||null, url:(!yid&&!tid)?url:null }]; })()
   };
   athletes.push(a);
   localStorage.setItem('athletes',JSON.stringify(athletes));
   renderAthletes(); closeAthleteModal();
 }
 function deleteAthlete(id){ if(!isAdminLoggedIn) return; athletes = athletes.filter(x=>x.id!==id); localStorage.setItem('athletes',JSON.stringify(athletes)); renderAthletes(); }
+
+/* ======== Athlete image resolver (Open Graph) ======== */
+function makeProxy(url){ return 'https://r.jina.ai/http://' + url.replace(/^https?:\/\//,''); }
+function absolutize(url, origin){
+  if(!url) return '';
+  if(url.startsWith('//')) return 'https:' + url;
+  if(/^https?:\/\//i.test(url)) return url;
+  if(url.startsWith('/')){ try{ const o = new URL(origin); return o.origin + url; }catch(e){ return url; } }
+  return url;
+}
+function extractOgImage(html){
+  const metaRe = /<meta[^>]+(?:property|name)=["'](?:og:image|og:image:url|twitter:image|twitter:image:src)["'][^>]+content=["']([^"']+)["']/ig;
+  const metas=[...html.matchAll(metaRe)];
+  if(metas.length) return metas[0][1];
+  const linkImg = html.match(/<link[^>]+rel=["']image_src["'][^>]+href=["']([^"']+)["']/i);
+  if(linkImg && linkImg[1]) return linkImg[1];
+  const img = html.match(/<img[^>]+src=["']([^"']+\.(?:jpg|jpeg|png))["'][^>]*>/i);
+  return img && img[1] ? img[1] : '';
+}
+
+async function resolveProfileImageFor(a){
+  if(a.imageUrl || !(a.links && a.links.profile)) return false;
+  try{
+    const profileUrl = a.links.profile;
+    const res = await fetch(makeProxy(profileUrl), { cache: 'force-cache' });
+    if(!res.ok) return false;
+    const html = await res.text();
+    const candidate = extractOgImage(html);
+    if(!candidate) return false;
+    a.imageUrl = absolutize(candidate, profileUrl);
+    return true;
+  }catch(e){ return false; }
+}
+
+async function resolveAllAthleteImages(){
+  let changed = false;
+  for(const a of athletes){
+    const did = await resolveProfileImageFor(a);
+    if(did) changed = true;
+  }
+  if(changed){
+    localStorage.setItem('athletes', JSON.stringify(athletes));
+    renderAthletes();
+  }
+}
 
 /* =================== INIT =================== */
 function renderFeatured(){ renderFeaturedVideos(); }
@@ -909,6 +973,8 @@ function init(){
   renderFeatured();
   renderCurated();
   initAthletes();
+  // Attempt to auto-fill athlete images from their profile pages (cached via localStorage)
+  resolveAllAthleteImages();
 }
 init();
 
