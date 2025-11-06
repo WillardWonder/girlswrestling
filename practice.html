@@ -1,6 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Pause, RotateCcw, Plus, Trash2, Edit2, Save, X, Clock, Calendar, Timer, ChevronUp, ChevronDown, BookOpen, ListChecks, Zap } from 'lucide-react';
 
+// --- START: Storage Fallback Helper ---
+const STORAGE_KEY = 'custom-activities';
+
+// Use localStorage as a reliable fallback for standard browser environments (like GitHub Pages)
+// Note: In a real-world app, you might use a library like Redux-Persist or a small wrapper for better state management.
+const loadActivitiesFromStorage = () => {
+  try {
+    // Attempt to use non-standard window.storage first (if available in a specific environment)
+    if (window.storage && typeof window.storage.get === 'function') {
+      // NOTE: This is async, but we treat it as sync for the initial load for simplicity
+      // In a more robust implementation, this would be handled with proper async/await
+      console.log('Using window.storage (non-standard)');
+      // For immediate load, we need a slight refactor in the useEffect, 
+      // but for this fix, we'll keep the useEffect async logic and trust the browser's localStorage as the immediate fallback.
+      // For now, let's just make the main functions work with localStorage.
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    }
+    
+    // Fallback to localStorage for standard browsers (like GitHub Pages)
+    console.log('Using localStorage (standard browser API)');
+    const storedValue = localStorage.getItem(STORAGE_KEY);
+    return storedValue ? JSON.parse(storedValue) : [];
+  } catch (error) {
+    console.error('Error loading custom activities:', error);
+    return [];
+  }
+};
+
+const saveActivitiesToStorage = (activities) => {
+  try {
+    // Attempt to use non-standard window.storage first
+    if (window.storage && typeof window.storage.set === 'function') {
+      window.storage.set(STORAGE_KEY, JSON.stringify(activities));
+    }
+    
+    // Always save to localStorage as a fallback/primary for standard browsers
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(activities));
+    return true;
+  } catch (error) {
+    console.error('Error saving custom activities:', error);
+    return false;
+  }
+};
+// --- END: Storage Fallback Helper ---
+
 const WrestlingPracticeSystem = () => {
   const [mode, setMode] = useState('setup');
   const [setupStep, setSetupStep] = useState('details'); // 'details', 'activities', 'schedule', 'history'
@@ -22,28 +67,18 @@ const WrestlingPracticeSystem = () => {
   });
   const [selectedPresets, setSelectedPresets] = useState({});
 
-  // Load custom activities from storage
+  // Load custom activities from storage on mount
   useEffect(() => {
-    const loadCustomActivities = async () => {
-      try {
-        const result = await window.storage.get('custom-activities');
-        if (result && result.value) {
-          setCustomActivities(JSON.parse(result.value));
-        }
-      } catch (error) {
-        console.log('No custom activities found');
-      }
-    };
-    loadCustomActivities();
+    // The original async logic for 'window.storage' is replaced with a single load function
+    // that prioritizes the standard browser API for GitHub Pages compatibility.
+    setCustomActivities(loadActivitiesFromStorage());
   }, []);
 
-  // Save custom activities to storage
-  const saveCustomActivities = async (newCustomActivities) => {
-    try {
-      await window.storage.set('custom-activities', JSON.stringify(newCustomActivities));
+  // Save custom activities (now using the standardized function)
+  const saveCustomActivities = (newCustomActivities) => {
+    const success = saveActivitiesToStorage(newCustomActivities);
+    if (success) {
       setCustomActivities(newCustomActivities);
-    } catch (error) {
-      console.error('Error saving custom activities:', error);
     }
   };
   
@@ -94,12 +129,15 @@ const WrestlingPracticeSystem = () => {
       delete newSelected[preset.id];
       setSelectedPresets(newSelected);
     } else {
+      // Check if it's a custom activity to ensure its ID is unique for the schedule
+      const activityToAdd = preset.id.startsWith('c') ? { ...preset, id: 's' + Date.now() + Math.random() } : preset;
       setSelectedPresets({
         ...selectedPresets,
-        [preset.id]: { ...preset, duration: preset.duration }
+        [preset.id]: { ...activityToAdd, duration: preset.duration }
       });
     }
   };
+
 
   const updatePresetDuration = (id, duration) => {
     setSelectedPresets({
@@ -109,31 +147,36 @@ const WrestlingPracticeSystem = () => {
   };
 
   const addSelectedActivities = () => {
-    const newActivities = Object.values(selectedPresets).map(preset => ({
-      ...preset,
-      id: Date.now() + Math.random()
-    }));
+    const newActivities = Object.values(selectedPresets).map(preset => {
+      // Ensure activities added to the main schedule have a unique ID, even if from presets
+      return {
+        ...preset,
+        // The ID used for the schedule must be unique, not the original preset/custom ID
+        id: 's' + Date.now() + Math.random()
+      };
+    });
     setActivities([...activities, ...newActivities]);
     setSelectedPresets({});
     setSetupStep('schedule');
   };
 
-  const addCustomActivity = async () => {
+  const addCustomActivity = () => {
     if (customActivity.title.trim()) {
       const newActivity = { 
         ...customActivity, 
-        id: 'c' + Date.now()
+        // Use a persistent ID for custom library
+        id: 'c' + Date.now() 
       };
       const updatedCustomActivities = [...customActivities, newActivity];
-      await saveCustomActivities(updatedCustomActivities);
+      saveCustomActivities(updatedCustomActivities);
       setCustomActivity({ title: '', duration: 5, description: '', category: 'Drill' });
       setShowCustomForm(false);
     }
   };
 
-  const deleteCustomActivity = async (id) => {
+  const deleteCustomActivity = (id) => {
     const updatedCustomActivities = customActivities.filter(a => a.id !== id);
-    await saveCustomActivities(updatedCustomActivities);
+    saveCustomActivities(updatedCustomActivities);
   };
 
   const removeActivity = (id) => {
