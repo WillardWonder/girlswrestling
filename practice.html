@@ -32,6 +32,11 @@
         <!-- Content will be injected here -->
     </div>
 
+    <!-- Message Box Container -->
+    <div id="message-box" class="fixed top-4 right-4 z-50 transition-transform duration-300 transform translate-x-full">
+        <!-- Message content here -->
+    </div>
+
     <script>
         // --- State Management (Vanilla JS equivalent of React state) ---
         let state = {
@@ -49,6 +54,7 @@
             isRunning: false,
             elapsedSeconds: 0,
             intervalId: null,
+            // Initialize currentTime once
             currentTime: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
         };
 
@@ -73,6 +79,26 @@
         
         // --- Core Utilities ---
 
+        function showMessage(message, type = 'info') {
+            const box = document.getElementById('message-box');
+            let bgColor = 'bg-blue-600';
+            if (type === 'error') bgColor = 'bg-red-600';
+            if (type === 'success') bgColor = 'bg-green-600';
+
+            box.innerHTML = `
+                <div class="${bgColor} text-white p-4 rounded-lg shadow-xl max-w-sm">
+                    ${message}
+                </div>
+            `;
+            box.classList.remove('translate-x-full');
+            box.classList.add('translate-x-0');
+
+            setTimeout(() => {
+                box.classList.remove('translate-x-0');
+                box.classList.add('translate-x-full');
+            }, 3000);
+        }
+
         function saveCustomActivities(activities) {
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(activities));
@@ -80,6 +106,7 @@
                 render();
             } catch (e) {
                 console.error("Could not save custom activities:", e);
+                showMessage("Could not save custom activities locally.", 'error');
             }
         }
 
@@ -130,6 +157,10 @@
                 state.elapsedSeconds += 1;
                 
                 const currentActivity = state.activities[state.currentActivityIndex];
+                
+                // IMPORTANT: Update current time display *inside* the main timer loop
+                state.currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
                 if (currentActivity && state.elapsedSeconds >= currentActivity.duration * 60) {
                     // Activity completed
                     if (state.currentActivityIndex < state.activities.length - 1) {
@@ -140,30 +171,42 @@
                         clearInterval(state.intervalId);
                         state.isRunning = false;
                         state.intervalId = null;
+                        showMessage("Practice completed!", 'success');
                     }
                 }
                 
-                // Update current time display
-                state.currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-                render();
+                render(); // Renders the UI every second
             }, 1000);
             render();
         }
 
         function pauseTimer() {
-            clearInterval(state.intervalId);
+            if (state.intervalId) {
+                clearInterval(state.intervalId);
+            }
             state.isRunning = false;
             state.intervalId = null;
             render();
         }
 
         function toggleTimer() {
-            if (state.activities.length === 0) return; // Prevent start if no activities
+            if (state.activities.length === 0) {
+                 showMessage("Please add activities to your schedule first.", 'error');
+                 return;
+            }
+            if (state.currentActivityIndex >= state.activities.length) {
+                // If practice is completed, clicking play should reset and start again
+                resetTimer();
+                startTimer();
+                return;
+            }
+
             if (state.isRunning) {
                 pauseTimer();
+                showMessage("Timer Paused.", 'info');
             } else {
                 startTimer();
+                showMessage("Timer Started!", 'success');
             }
         }
 
@@ -173,6 +216,7 @@
             state.elapsedSeconds = 0;
             state.isRunning = false;
             render();
+            showMessage("Practice Reset.", 'info');
         }
 
         // --- Render Functions ---
@@ -188,7 +232,6 @@
             }
 
             appDiv.innerHTML = html;
-            attachEventListeners();
         }
 
         function renderSetupMode() {
@@ -218,6 +261,7 @@
                             <div class="flex gap-4">
                                 ${stepButtons.map((btn, index) => `
                                     <button
+                                        data-action="set-step"
                                         data-step="${btn.step}"
                                         class="step-btn flex-1 py-4 px-6 rounded-lg font-bold text-lg transition-all flex items-center justify-center gap-3 ${
                                             state.setupStep === btn.step
@@ -257,35 +301,36 @@
                             <div>
                                 <label class="block text-xl font-bold mb-3 text-blue-400">Practice Date</label>
                                 <input
-                                    id="practice-date"
+                                    data-state-key="practiceDate"
                                     type="date"
                                     value="${state.practiceDate}"
-                                    class="w-full bg-gray-700 border-2 border-gray-600 rounded-lg px-4 py-3 text-white text-lg focus:border-blue-500 focus:outline-none"
+                                    class="input-state w-full bg-gray-700 border-2 border-gray-600 rounded-lg px-4 py-3 text-white text-lg focus:border-blue-500 focus:outline-none"
                                 />
                             </div>
                             <div>
                                 <label class="block text-xl font-bold mb-3 text-blue-400">Start Time</label>
                                 <input
-                                    id="start-time"
+                                    data-state-key="startTime"
                                     type="time"
                                     value="${state.startTime}"
-                                    class="w-full bg-gray-700 border-2 border-gray-600 rounded-lg px-4 py-3 text-white text-lg focus:border-blue-500 focus:outline-none"
+                                    class="input-state w-full bg-gray-700 border-2 border-gray-600 rounded-lg px-4 py-3 text-white text-lg focus:border-blue-500 focus:outline-none"
                                 />
                             </div>
                             <div>
                                 <label class="block text-xl font-bold mb-3 text-blue-400">End Time</label>
                                 <input
-                                    id="end-time"
+                                    data-state-key="endTime"
                                     type="time"
                                     value="${state.endTime}"
-                                    class="w-full bg-gray-700 border-2 border-gray-600 rounded-lg px-4 py-3 text-white text-lg focus:border-blue-500 focus:outline-none"
+                                    class="input-state w-full bg-gray-700 border-2 border-gray-600 rounded-lg px-4 py-3 text-white text-lg focus:border-blue-500 focus:outline-none"
                                 />
                             </div>
                         </div>
                     </div>
 
                     <button
-                        data-action="next-activities"
+                        data-action="change-step"
+                        data-target-step="activities"
                         class="next-step-btn w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black rounded-lg py-6 text-2xl font-bold transition-all"
                     >
                         Next: Select Activities &rarr;
@@ -447,13 +492,15 @@
                     
                     <div class="flex gap-4">
                         <button
-                            data-action="next-details"
+                            data-action="change-step"
+                            data-target-step="details"
                             class="flex-1 bg-gray-700 hover:bg-gray-600 text-white rounded-lg py-4 text-xl font-bold"
                         >
                             &larr; Back
                         </button>
                         <button
-                            data-action="next-schedule"
+                            data-action="change-step"
+                            data-target-step="schedule"
                             class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white rounded-lg py-4 text-xl font-bold"
                         >
                             Next: Build Schedule &rarr;
@@ -483,7 +530,8 @@
                         <div class="bg-gray-800 rounded-lg p-12 border-2 border-gray-700 text-center">
                             <p class="text-xl text-gray-400 mb-4">No activities in your schedule yet</p>
                             <button
-                                data-action="next-activities"
+                                data-action="change-step"
+                                data-target-step="activities"
                                 class="next-step-btn bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg"
                             >
                                 Go Back and Select Activities
@@ -495,10 +543,10 @@
                                 ${state.activities.map((activity, idx) => `
                                     <div data-id="${activity.id}" class="activity-item bg-gray-700 rounded-lg p-4 flex items-center gap-3 border-2 border-gray-600 hover:border-blue-500 transition-all">
                                         <div class="flex flex-col gap-1">
-                                            <button data-index="${idx}" data-action="move-up" class="text-blue-400 hover:text-blue-300 disabled:text-gray-600 disabled:cursor-not-allowed" ${idx === 0 ? 'disabled' : ''}>
+                                            <button data-index="${idx}" data-action="move-activity" data-direction="up" class="text-blue-400 hover:text-blue-300 disabled:text-gray-600 disabled:cursor-not-allowed" ${idx === 0 ? 'disabled' : ''}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 7-7 7 7"/></svg>
                                             </button>
-                                            <button data-index="${idx}" data-action="move-down" class="text-blue-400 hover:text-blue-300 disabled:text-gray-600 disabled:cursor-not-allowed" ${idx === state.activities.length - 1 ? 'disabled' : ''}>
+                                            <button data-index="${idx}" data-action="move-activity" data-direction="down" class="text-blue-400 hover:text-blue-300 disabled:text-gray-600 disabled:cursor-not-allowed" ${idx === state.activities.length - 1 ? 'disabled' : ''}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                                             </button>
                                         </div>
@@ -508,8 +556,8 @@
                                         </span>
 
                                         ${state.editingId === activity.id ? `
-                                            <input type="text" id="edit-title-${activity.id}" value="${activity.title}" class="flex-1 bg-gray-600 border-2 border-gray-500 rounded px-3 py-2 text-white" />
-                                            <input type="number" min="1" id="edit-duration-${activity.id}" value="${activity.duration}" class="w-20 bg-gray-600 border-2 border-gray-500 rounded px-3 py-2 text-white" />
+                                            <input type="text" id="edit-title-${activity.id}" value="${activity.title}" class="input-edit flex-1 bg-gray-600 border-2 border-gray-500 rounded px-3 py-2 text-white" />
+                                            <input type="number" min="1" id="edit-duration-${activity.id}" value="${activity.duration}" class="input-edit w-20 bg-gray-600 border-2 border-gray-500 rounded px-3 py-2 text-white" />
                                             <button data-id="${activity.id}" data-action="save-activity" class="text-green-400 hover:text-green-300">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v13a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
                                             </button>
@@ -533,7 +581,8 @@
 
                         <div class="flex gap-4">
                             <button
-                                data-action="next-activities"
+                                data-action="change-step"
+                                data-target-step="activities"
                                 class="flex-1 bg-gray-700 hover:bg-gray-600 text-white rounded-lg py-4 text-xl font-bold"
                             >
                                 &larr; Add More Activities
@@ -682,196 +731,172 @@
             `;
         }
 
-        // --- Event Listeners and Actions ---
+        // --- Event Delegation (New, Robust System) ---
 
-        function attachEventListeners() {
-            // General setup step navigation
-            document.querySelectorAll('.step-btn').forEach(btn => {
-                btn.onclick = () => {
-                    state.setupStep = btn.dataset.step;
+        function handleGlobalClick(e) {
+            const target = e.target.closest('[data-action]');
+            if (!target) return;
+
+            const action = target.dataset.action;
+            const id = target.dataset.id;
+            const index = parseInt(target.dataset.index);
+            const direction = target.dataset.direction;
+            const targetStep = target.dataset.targetStep;
+
+            switch (action) {
+                // Global Navigation
+                case 'set-step':
+                    state.setupStep = target.dataset.step;
                     render();
-                };
-            });
-            
-            // Detail Step Actions
-            if (state.setupStep === 'details') {
-                document.getElementById('practice-date').onchange = (e) => { state.practiceDate = e.target.value; };
-                document.getElementById('start-time').onchange = (e) => { state.startTime = e.target.value; };
-                document.getElementById('end-time').onchange = (e) => { state.endTime = e.target.value; };
-                document.querySelector('[data-action="next-activities"]').onclick = () => {
-                    state.setupStep = 'activities';
+                    break;
+                case 'change-step':
+                    state.setupStep = targetStep;
                     render();
-                };
-            }
-
-            // Activity Step Actions
-            if (state.setupStep === 'activities') {
-                document.querySelector('[data-action="toggle-custom-form"]').onclick = () => {
-                    state.showCustomForm = !state.showCustomForm;
-                    render();
-                };
-                if (state.showCustomForm) {
-                    document.querySelector('[data-action="cancel-custom-form"]').onclick = () => {
-                        state.showCustomForm = false;
-                        render();
-                    };
-                    document.querySelector('[data-action="add-custom-activity"]').onclick = () => {
-                        const title = document.getElementById('custom-title').value.trim();
-                        const duration = parseInt(document.getElementById('custom-duration').value) || 5;
-                        const description = document.getElementById('custom-description').value.trim();
-                        const category = document.getElementById('custom-category').value;
-                        
-                        if (title) {
-                            const newActivity = { 
-                                id: 'c' + Date.now(), 
-                                title, duration, description, category 
-                            };
-                            saveCustomActivities([...state.customActivities, newActivity]);
-                            state.showCustomForm = false;
-                        } else {
-                            alert("Please enter a title for the custom activity.");
-                        }
-                    };
-                }
-                document.querySelectorAll('[data-action="delete-custom-activity"]').forEach(btn => {
-                    btn.onclick = () => {
-                        const id = btn.dataset.id;
-                        saveCustomActivities(state.customActivities.filter(a => a.id !== id));
-                    };
-                });
-                
-                document.querySelectorAll('[data-action="toggle-preset-selection"]').forEach(btn => {
-                    btn.onclick = () => {
-                        const id = btn.dataset.id;
-                        const all = [...presetActivities, ...state.customActivities];
-                        const preset = all.find(a => a.id === id);
-
-                        if (state.selectedPresets[id]) {
-                            delete state.selectedPresets[id];
-                        } else {
-                            state.selectedPresets[id] = { ...preset, duration: preset.duration };
-                        }
-                        render();
-                    };
-                });
-
-                document.querySelectorAll('[data-action="update-preset-duration"]').forEach(input => {
-                    input.oninput = (e) => {
-                        const id = input.dataset.id;
-                        state.selectedPresets[id].duration = parseInt(e.target.value) || 1;
-                        // No need to re-render the whole page for a simple input change
-                    };
-                });
-                
-                const addSelectedBtn = document.querySelector('[data-action="add-selected-to-schedule"]');
-                if (addSelectedBtn) {
-                    addSelectedBtn.onclick = () => {
-                        const newActivities = Object.values(state.selectedPresets).map(preset => ({
-                            ...preset,
-                            id: 's' + Date.now() + Math.random()
-                        }));
-                        state.activities = [...state.activities, ...newActivities];
-                        state.selectedPresets = {};
-                        state.setupStep = 'schedule';
-                        render();
-                    };
-                }
-
-                document.querySelector('[data-action="next-details"]').onclick = () => { state.setupStep = 'details'; render(); };
-                document.querySelector('[data-action="next-schedule"]').onclick = () => { state.setupStep = 'schedule'; render(); };
-            }
-            
-            // Schedule Step Actions
-            if (state.setupStep === 'schedule') {
-                document.querySelector('[data-action="next-activities"]').onclick = () => { state.setupStep = 'activities'; render(); };
-                
-                document.querySelector('[data-action="start-live-mode"]').onclick = () => {
+                    break;
+                case 'start-live-mode':
                     if (state.activities.length === 0) {
-                        alert("Please add activities to your schedule before starting!");
+                        showMessage("Add activities to your schedule first!", 'error');
                         return;
                     }
+                    pauseTimer(); // Ensure any existing timer is stopped
                     state.mode = 'live';
                     state.currentActivityIndex = 0;
                     state.elapsedSeconds = 0;
                     state.isRunning = false;
                     render();
-                };
-
-                document.querySelectorAll('[data-action="move-up"], [data-action="move-down"]').forEach(btn => {
-                    btn.onclick = () => {
-                        const index = parseInt(btn.dataset.index);
-                        const direction = btn.dataset.action === 'move-up' ? 'up' : 'down';
-                        
-                        const newActivities = [...state.activities];
-                        const newIndex = direction === 'up' ? index - 1 : index + 1;
-                        
-                        if (newIndex >= 0 && newIndex < newActivities.length) {
-                            [newActivities[index], newActivities[newIndex]] = [newActivities[newIndex], newActivities[index]];
-                            state.activities = newActivities;
-                            render();
-                        }
-                    };
-                });
-                
-                document.querySelectorAll('[data-action="remove-activity"]').forEach(btn => {
-                    btn.onclick = () => {
-                        const id = btn.dataset.id;
-                        state.activities = state.activities.filter(a => a.id !== id);
-                        render();
-                    };
-                });
-
-                document.querySelectorAll('[data-action="edit-activity"]').forEach(btn => {
-                    btn.onclick = () => {
-                        state.editingId = btn.dataset.id;
-                        render();
-                    };
-                });
-
-                document.querySelectorAll('[data-action="save-activity"]').forEach(btn => {
-                    btn.onclick = () => {
-                        const id = btn.dataset.id;
-                        const title = document.getElementById(`edit-title-${id}`).value.trim();
-                        const duration = parseInt(document.getElementById(`edit-duration-${id}`).value) || 1;
-
-                        if (title) {
-                            state.activities = state.activities.map(a => 
-                                a.id === id ? { ...a, title: title, duration: duration } : a
-                            );
-                            state.editingId = null;
-                            render();
-                        } else {
-                            alert("Activity title cannot be empty.");
-                        }
-                    };
-                });
-            }
-
-            // Live Mode Actions
-            if (state.mode === 'live') {
-                document.querySelector('[data-action="toggle-timer"]').onclick = toggleTimer;
-                document.querySelector('[data-action="reset-timer"]').onclick = resetTimer;
-                document.querySelector('[data-action="return-to-setup"]').onclick = () => {
+                    break;
+                case 'return-to-setup':
                     pauseTimer();
                     state.mode = 'setup';
                     render();
-                };
+                    break;
+
+                // Live Mode Controls
+                case 'toggle-timer':
+                    toggleTimer();
+                    break;
+                case 'reset-timer':
+                    resetTimer();
+                    break;
+
+                // Activity Setup Actions
+                case 'toggle-custom-form':
+                    state.showCustomForm = !state.showCustomForm;
+                    render();
+                    break;
+                case 'cancel-custom-form':
+                    state.showCustomForm = false;
+                    render();
+                    break;
+                case 'add-custom-activity':
+                    const title = document.getElementById('custom-title').value.trim();
+                    const duration = parseInt(document.getElementById('custom-duration').value) || 5;
+                    const description = document.getElementById('custom-description').value.trim();
+                    const category = document.getElementById('custom-category').value;
+                    
+                    if (title) {
+                        const newActivity = { id: 'c' + Date.now(), title, duration, description, category };
+                        saveCustomActivities([...state.customActivities, newActivity]);
+                        state.showCustomForm = false;
+                    } else {
+                        showMessage("Please enter a title for the custom activity.", 'error');
+                    }
+                    break;
+                case 'delete-custom-activity':
+                    saveCustomActivities(state.customActivities.filter(a => a.id !== id));
+                    break;
+                case 'toggle-preset-selection':
+                    const all = [...presetActivities, ...state.customActivities];
+                    const preset = all.find(a => a.id === id);
+
+                    if (state.selectedPresets[id]) {
+                        delete state.selectedPresets[id];
+                    } else {
+                        state.selectedPresets[id] = { ...preset, duration: preset.duration };
+                    }
+                    render();
+                    break;
+                case 'add-selected-to-schedule': { // Added scoping braces { }
+                    const newActivities = Object.values(state.selectedPresets).map(preset => ({
+                        ...preset,
+                        id: 's' + Date.now() + Math.random()
+                    }));
+                    state.activities = [...state.activities, ...newActivities];
+                    state.selectedPresets = {};
+                    state.setupStep = 'schedule';
+                    render();
+                    break;
+                } // Added scoping braces { }
+                
+                // Schedule Editing Actions
+                case 'move-activity': { // Added scoping braces { }
+                    const newActivities = [...state.activities];
+                    const newIndex = direction === 'up' ? index - 1 : index + 1;
+                    
+                    if (newIndex >= 0 && newIndex < newActivities.length) {
+                        [newActivities[index], newActivities[newIndex]] = [newActivities[newIndex], newActivities[index]];
+                        state.activities = newActivities;
+                        render();
+                    }
+                    break;
+                } // Added scoping braces { }
+                case 'remove-activity':
+                    state.activities = state.activities.filter(a => a.id !== id);
+                    render();
+                    break;
+                case 'edit-activity':
+                    state.editingId = id;
+                    render();
+                    break;
+                case 'save-activity':
+                    const titleInput = document.getElementById(`edit-title-${id}`);
+                    const durationInput = document.getElementById(`edit-duration-${id}`);
+                    const newTitle = titleInput ? titleInput.value.trim() : '';
+                    const newDuration = durationInput ? parseInt(durationInput.value) || 1 : 1;
+
+                    if (newTitle) {
+                        state.activities = state.activities.map(a => 
+                            a.id === id ? { ...a, title: newTitle, duration: newDuration } : a
+                        );
+                        state.editingId = null;
+                        showMessage("Activity Updated.", 'info');
+                        render();
+                    } else {
+                        showMessage("Activity title cannot be empty.", 'error');
+                    }
+                    break;
             }
+        }
+
+        function handleGlobalInput(e) {
+            const target = e.target;
+            const stateKey = target.dataset.stateKey;
+            
+            if (stateKey) {
+                state[stateKey] = target.value;
+            }
+            // Handle preset duration change directly on input
+            if (target.dataset.action === 'update-preset-duration') {
+                const id = target.dataset.id;
+                state.selectedPresets[id].duration = parseInt(target.value) || 1;
+            }
+        }
+
+        function setupGlobalListeners() {
+            // Attach a single click listener to the main app container for ALL buttons
+            document.getElementById('app').addEventListener('click', handleGlobalClick);
+
+            // Attach a single input listener to the main app container for ALL inputs
+            document.getElementById('app').addEventListener('input', handleGlobalInput);
         }
         
         // --- Initialization ---
         window.onload = function() {
             loadCustomActivities();
+            setupGlobalListeners(); // Set up the single, permanent event listener
             render();
-            // Start a separate clock interval for the current time display
-            setInterval(() => {
-                state.currentTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                // Only update the time element, no need for full render
-                const timeSpan = document.getElementById('current-time');
-                if (timeSpan) {
-                    timeSpan.textContent = state.currentTime;
-                }
-            }, 1000);
+            // REMOVED the redundant, separate setInterval for current time display.
+            // Current time is now updated inside the main startTimer loop.
         };
         
     </script>
